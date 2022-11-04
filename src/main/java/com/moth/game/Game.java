@@ -3,6 +3,7 @@ package com.moth.game;
 import com.moth.game.handlers.Handler;
 import com.moth.game.inputs.KeyInput;
 import com.moth.game.objects.bonus.MariuszPudzian;
+import com.moth.game.objects.bonus.NajmanMarcin;
 import com.moth.game.objects.enemies.Bulb;
 import com.moth.game.enums.ID;
 import com.moth.game.objects.Player;
@@ -32,6 +33,7 @@ public class Game extends Canvas implements Runnable {
        // handler.addObject(new Bonus(Game.WIDTH/2,Game.HEIGHT/3*2,ID.Bonus,handler));
         handler.addObject(new Player(WIDTH/2-32,HEIGHT-32, ID.Player,handler));
         handler.addObject(new MariuszPudzian(WIDTH/2-32,HEIGHT/2-100, ID.Bonus,handler));
+        handler.addObject(new NajmanMarcin(WIDTH-100,HEIGHT/2-100, ID.Bonus,handler));
         //MariuszPudzian m=new MariuszPudzian(WIDTH/2-32,HEIGHT/2-32, ID.Player,handler);
 
 

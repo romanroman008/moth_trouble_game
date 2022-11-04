@@ -14,6 +14,7 @@ public class Player extends GameObject {
     int counter;
     float bonusSpeedMultiplier;
     boolean gotcha=false;
+    boolean instantLose=false;
 
     public Player(float x, float y, ID id, Handler handler) {
         super(x, y, id);
@@ -30,7 +31,7 @@ public class Player extends GameObject {
 
     @Override
     public void tick() {
-        if(!gotcha||bonusSpeedMultiplier!=0){
+        if((!gotcha||bonusSpeedMultiplier!=0)&&!instantLose){
             if(bonusSpeedMultiplier!=0){
                 x += velX * bonusSpeedMultiplier;
                 y += velY * bonusSpeedMultiplier;
@@ -124,5 +125,9 @@ public class Player extends GameObject {
 
     public void setGotcha() {
         this.gotcha = true;
+    }
+
+    public void setInstantLose(){
+        this.instantLose=true;
     }
 }

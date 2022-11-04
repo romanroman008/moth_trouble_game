@@ -33,8 +33,7 @@ public class MariuszPudzian extends GameObject implements Bonus {
         tick(this);
         if(collision(this)){
             getHandler().getBonusHandler().addBonus(this);
-            //  System.out.println("dotklo");
-           // getHandler().removeObject(this);
+            getHandler().removeObject(this);
         }
 
     }
