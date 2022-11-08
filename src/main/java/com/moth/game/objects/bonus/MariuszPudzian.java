@@ -10,12 +10,13 @@ import java.awt.*;
 
 public class MariuszPudzian extends GameObject implements Bonus {
 
-    private BonusType bonusType=BonusType.PUDZIAN;
+    float life;
 
     public MariuszPudzian(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        this.height=32;
-        this.width=32;
+        life=1f;
+        this.height=70;
+        this.width=50;
         this.velX=5;
         this.velY=5;
     }
@@ -30,17 +31,14 @@ public class MariuszPudzian extends GameObject implements Bonus {
 
     @Override
     public void tick() {
-        tick(this);
-        if(collision(this)){
-            getHandler().getBonusHandler().addBonus(this);
-            getHandler().removeObject(this);
-        }
+        life=tick(this,life);
 
     }
 
     @Override
     public void render(Graphics g) {
-        render(g,this);
+       // render(g,this);
+        g.drawImage(Game.pudzian_image,(int)x,(int)y,50,70,null);
        // bonusPower(g);
     }
 
@@ -52,12 +50,12 @@ public class MariuszPudzian extends GameObject implements Bonus {
 
     @Override
     public BonusType getBonusType() {
-        return this.bonusType;
+        return BonusType.PUDZIAN;
     }
 
     @Override
     public void bonusPower() {
-        getHandler().getPlayer().setBonusSpeedMultiplier(4);
+        getHandler().getPlayer().setBonusSpeedMultiplier(2);
     }
 
     public void bonusDepower(){

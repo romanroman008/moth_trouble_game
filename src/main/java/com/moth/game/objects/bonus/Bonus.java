@@ -10,7 +10,7 @@ import java.awt.*;
 
 public interface Bonus {
 
-    default void tick(GameObject gameObject){
+    default float tick(GameObject gameObject,float life){
         //       i++;
 //       if(i>=20){
 //           velY=0;
@@ -29,18 +29,25 @@ public interface Bonus {
         gameObject.setVelY((float) Math.sin(gameObject.getX()/70)*3);
 
 
-        // if(life>0){
+        if(collision(gameObject)){
+            gameObject.getHandler().getBonusHandler().addBonus((Bonus)gameObject);
+            gameObject.getHandler().removeObject(gameObject);
+        }
+
+         if(life>0){
         gameObject.setX(gameObject.getX()+gameObject.getVelX());
         gameObject.setY(gameObject.getY()+gameObject.getVelY());
 
-        //       life-=0.005f;
-        //   }
-        //   else{
-        //       handler.removeObject(this);
-        //    }
+               life-=0.005f;
+           }
+           else{
+               life=1f;
+               gameObject.getHandler().removeObject(gameObject);
+            }
 
         if(gameObject.getX()<=0||gameObject.getX()>Game.WIDTH-32)
             gameObject.setVelX(-gameObject.getVelX());
+        return life;
     }
 
     default void render(Graphics g,GameObject o) {

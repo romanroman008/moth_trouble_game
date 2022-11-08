@@ -37,12 +37,17 @@ public class BonusHandler {
                     case NAJMAN -> {
                         g.setColor(Color.orange);
                         g.setFont(font);
-                        g.drawString("Najman bonuus maaan!",300,Game.HEIGHT/2);
+                        g.drawString("Wez sie rozpedz i jebnij łbem o sciane",300,Game.HEIGHT/2);
                     }
                     case PUDZIAN -> {
                         g.setColor(Color.pink);
                         g.setFont(font);
                         g.drawString("POLSKA GUROM!1!1!",500,Game.HEIGHT/2);
+                    }
+                    case MICHAEL_JACKSON -> {
+                        g.setColor(Color.WHITE);
+                        g.setFont(font);
+                        g.drawString("Beat it pigs, hide ur kids",500,Game.HEIGHT/2);
                     }
                 }
             });
@@ -55,15 +60,12 @@ public class BonusHandler {
         bonusAction(bonus);
     }
     private void bonusAction(Bonus bonus){
-//        if(player==null) {               //bedzie problem imo
-//            player= handler.getPlayer();
-//        }
         bonus.bonusPower();
     }
 
     private void bonusCountdown(){
         counter++;
-        if(counter>=100){
+        if(counter>=30){
             counter=0;
             bonuses.forEach((k,v)->bonuses.put(k,v-1));
             //bonuses.forEach((x,y)->System.out.println(y));

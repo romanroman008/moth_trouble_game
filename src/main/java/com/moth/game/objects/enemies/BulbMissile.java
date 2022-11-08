@@ -13,11 +13,13 @@ public class BulbMissile extends GameObject {
 
     Handler handler;
     private Random r;
+    Color color;
 
 
     public BulbMissile(float x, float y, ID id, float velY, Handler handler) {
         super(x, y, id);
 
+        color=new Color(255,255,153);
         this.handler = handler;
         r = new Random();
        // this.velY = velY;
@@ -46,7 +48,7 @@ public class BulbMissile extends GameObject {
         if(collision())
             handler.getPlayer().setGotcha();
 
-        handler.addObject(new Trail(x, y, 16, 16, Color.yellow, 0.05f, ID.Enemy, handler));
+        handler.addObject(new Trail(x, y, 16, 16, color, 0.05f, ID.Enemy, handler));
     }
 
     private boolean collision(){
@@ -63,9 +65,17 @@ public class BulbMissile extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.yellow);
+        Graphics2D g2d=(Graphics2D) g;
+        //g2d.setComposite(makeTransparent(0.5F));
+        g2d.setColor(new Color(255,255,153));
        // g.fillRect((int)x,(int)y,16,16);
-        g.fillOval((int)x,(int)y,16,16);
+        g2d.fillOval((int)x,(int)y,16,16);
+       // g2d.setComposite(makeTransparent(0.1f));
+    }
+
+    private AlphaComposite makeTransparent(float alpha) {
+        int type = AlphaComposite.SRC_OVER;
+        return (AlphaComposite.getInstance(type, alpha));
     }
 
     @Override

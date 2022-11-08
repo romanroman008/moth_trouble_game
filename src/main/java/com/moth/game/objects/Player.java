@@ -5,6 +5,7 @@ import com.moth.game.handlers.Handler;
 import com.moth.game.enums.ID;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends GameObject {
 
@@ -16,11 +17,14 @@ public class Player extends GameObject {
     boolean gotcha=false;
     boolean instantLose=false;
 
+    private BufferedImage player_image;
+
     public Player(float x, float y, ID id, Handler handler) {
         super(x, y, id);
         velX = 0;
         velY = 0;
         counter=0;
+        player_image=Game.moth_image;
        // bonuses=new HashMap<>();
         this.handler = handler;
         this.bulb = handler.getObjects().stream()
@@ -46,8 +50,8 @@ public class Player extends GameObject {
         }
 
 
-        x=Game.clamp(x,0,Game.WIDTH-44);
-        y=Game.clamp(y,0,Game.HEIGHT-70);
+        x=Game.clamp(x,-5,Game.WIDTH-75);
+        y=Game.clamp(y,0,Game.HEIGHT-85);
         if(y<240){
             if(x<(float)Game.WIDTH/2){
                 y=Game.clamp(y,-3f/8f*x+240,Game.WIDTH);
@@ -67,8 +71,8 @@ public class Player extends GameObject {
 
 
 
-        float diffX = x - bulb.getX() -25;
-        float diffY = y - bulb.getY() - 25;
+        float diffX = x - bulb.getX();
+        float diffY = y - bulb.getY() - 60;
         float distance = (float) Math.sqrt(Math.pow(diffX + 25, 2) + Math.pow(diffY + 25, 2));
 
         x+= ((-1/distance)*diffX*2);
@@ -93,14 +97,15 @@ public class Player extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.white);
-        g.fillRect((int) x, (int) y, 32, 32);
+//        g.setColor(Color.white);
+//        g.fillRect((int) x, (int) y, 32, 32);
+        g.drawImage(Game.moth_image,(int)x,(int)y,70,50,null);
 
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle((int) x, (int) y, 32, 32);
+        return new Rectangle((int) x, (int) y, 65, 52);
     }
 
 //    public void addBonus(BonusType bonus){

@@ -8,26 +8,25 @@ import com.moth.game.objects.GameObject;
 
 import java.awt.*;
 
-public class NajmanMarcin extends GameObject implements Bonus {
+public class MichaelJackson extends GameObject  implements Bonus {
     float life;
-    public NajmanMarcin(float x, float y, ID id) {
+    public MichaelJackson(float x, float y, ID id) {
         super(x, y, id);
-
     }
 
-    public NajmanMarcin(float x, float y, float height, float width, float velX, float velY, ID id) {
+    public MichaelJackson(float x, float y, float height, float width, float velX, float velY, ID id) {
         super(x, y, height, width, velX, velY, id);
     }
 
-    public NajmanMarcin(float x, float y, float height, float width, ID id) {
+    public MichaelJackson(float x, float y, float height, float width, ID id) {
         super(x, y, height, width, id);
     }
 
-    public NajmanMarcin(float x, float y, ID id, Handler handler) {
+    public MichaelJackson(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        this.life=1f;
+        life=1f;
         this.height=70;
-        this.width=40;
+        this.width=30;
         this.velX=5;
         this.velY=5;
     }
@@ -35,32 +34,33 @@ public class NajmanMarcin extends GameObject implements Bonus {
     @Override
     public void tick() {
         life=tick(this,life);
-
     }
 
     @Override
     public void render(Graphics g) {
-     //   render(g,this);
-        g.drawImage(Game.najman_image,(int)x,(int)y,40,70,null);
+        //render(g,this);
+//        g.setColor(Color.blue);
+//        g.fillRect((int)x,(int) y,(int) width,(int)height);
+        g.drawImage(Game.michael_jackson_image,(int)x,(int)y,30,70,null);
     }
 
     @Override
     public Rectangle getBounds() {
-       return getBounds(this);
+        return getBounds(this);
     }
 
     @Override
     public BonusType getBonusType() {
-        return BonusType.NAJMAN;
+       return BonusType.MICHAEL_JACKSON;
     }
 
     @Override
     public void bonusPower() {
-        getHandler().getPlayer().setInstantLose();
+        getHandler().getPlayer().setBonusSpeedMultiplier(-1);
     }
 
     @Override
     public void bonusDepower() {
-
+        getHandler().getPlayer().setBonusSpeedMultiplier(0);
     }
 }
