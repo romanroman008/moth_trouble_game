@@ -5,6 +5,7 @@ import com.moth.game.handlers.Handler;
 import com.moth.game.enums.ID;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Player extends GameObject {
@@ -101,7 +102,13 @@ public class Player extends GameObject {
     public void render(Graphics g) {
 //        g.setColor(Color.white);
 //        g.fillRect((int) x, (int) y, 32, 32);
-        g.drawImage(Game.moth_image,(int)x,(int)y,70,50,null);
+        Graphics2D g2d=(Graphics2D)g;
+        AffineTransform old=g2d.getTransform();
+        //g2d.rotate(Math.tan(diffY/diffX));
+        g2d.rotate(Math.toRadians(45));
+
+        g2d.drawImage(Game.moth_image,(int)x,(int)y,70,50,null);
+        g2d.setTransform(old);
 
     }
 

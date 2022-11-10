@@ -6,6 +6,7 @@ import com.moth.game.handlers.Handler;
 import com.moth.game.objects.GameObject;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.Random;
 
 public class Bat extends GameObject {
@@ -101,9 +102,12 @@ public class Bat extends GameObject {
     public void render(Graphics g) {
 //        g.setColor(Color.white);
 //        g.fillRect((int)x,(int)y,20,20);
-//        Graphics2D g2d=(Graphics2D) g;
-//        g2d.rotate(-Math.tan(diffY/diffX));
-        g.drawImage(Game.moth_image,(int)x,(int)y,70,50,null);
+        Graphics2D g2d=(Graphics2D) g;
+     //   AffineTransform old=g2d.getTransform();
+        //g2d.rotate(Math.tan(diffY/diffX));
+      //  g2d.rotate(Math.toRadians(270));
+        g2d.drawImage(Game.moth_image,(int)x,(int)y,70,50,null);
+      //  g2d.setTransform(old);
 
     }
 
