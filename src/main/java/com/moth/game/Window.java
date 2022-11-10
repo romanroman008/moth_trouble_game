@@ -7,9 +7,10 @@ import java.awt.*;
 
 public class Window extends Canvas {
     private static final long serialVersionUID = -8553933984764625043L;
+    private JFrame frame;
 
     public Window(int width, int height, String title, Game game){
-        JFrame frame=new JFrame(title);
+        frame=new JFrame(title);
         frame.setPreferredSize(new Dimension(width,height));
         frame.setMaximumSize(new Dimension(width, height));
         frame.setMinimumSize(new Dimension(width,height));
@@ -21,4 +22,13 @@ public class Window extends Canvas {
         frame.setVisible(true);
         game.start();
     }
+
+
+    public void changeSize(int width,int height){
+        frame.setPreferredSize(new Dimension(width,height));
+        frame.setMaximumSize(new Dimension(width,height));
+        frame.setMinimumSize(new Dimension(width,height));
+        frame.setLocationRelativeTo(null);
+    }
+
 }

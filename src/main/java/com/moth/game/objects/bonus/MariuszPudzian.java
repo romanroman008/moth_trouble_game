@@ -14,7 +14,7 @@ public class MariuszPudzian extends GameObject implements Bonus {
 
     public MariuszPudzian(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        life=1f;
+        life=2f;
         this.height=70;
         this.width=50;
         this.velX=5;
@@ -60,5 +60,9 @@ public class MariuszPudzian extends GameObject implements Bonus {
 
     public void bonusDepower(){
         getHandler().getPlayer().setBonusSpeedMultiplier(0);
+    }
+
+    public void resetBonusTime(){
+        this.life=2f;
     }
 }

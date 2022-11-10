@@ -24,7 +24,7 @@ public class MichaelJackson extends GameObject  implements Bonus {
 
     public MichaelJackson(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        life=1f;
+        life=2f;
         this.height=70;
         this.width=30;
         this.velX=5;

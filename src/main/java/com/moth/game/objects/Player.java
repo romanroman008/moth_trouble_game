@@ -16,6 +16,7 @@ public class Player extends GameObject {
     float bonusSpeedMultiplier;
     boolean gotcha=false;
     boolean instantLose=false;
+    private float multiGamePlayGuy;
 
     private BufferedImage player_image;
 
@@ -24,6 +25,7 @@ public class Player extends GameObject {
         velX = 0;
         velY = 0;
         counter=0;
+        multiGamePlayGuy=1;
         player_image=Game.moth_image;
        // bonuses=new HashMap<>();
         this.handler = handler;
@@ -35,7 +37,7 @@ public class Player extends GameObject {
 
     @Override
     public void tick() {
-        if((!gotcha||bonusSpeedMultiplier!=0)&&!instantLose){
+        if((!gotcha)&&!instantLose){
             if(bonusSpeedMultiplier!=0){
                 x += velX * bonusSpeedMultiplier;
                 y += velY * bonusSpeedMultiplier;
@@ -51,13 +53,13 @@ public class Player extends GameObject {
 
 
         x=Game.clamp(x,-5,Game.WIDTH-75);
-        y=Game.clamp(y,0,Game.HEIGHT-85);
+        y=Game.clamp(y,40,Game.HEIGHT-85);
         if(y<240){
             if(x<(float)Game.WIDTH/2){
-                y=Game.clamp(y,-3f/8f*x+240,Game.WIDTH);
+                y=Game.clamp(y,-3f/8f*(x+12)+240,Game.WIDTH);
             }
             if(x>(float)Game.WIDTH/2){
-                y=Game.clamp(y,3f/8f*x-240,Game.WIDTH);
+                y=Game.clamp(y,3f/8f*(x+55)-240,Game.WIDTH);
                 //x=Game.clamp(x,0,8f/3f*(y+240f));
             }
 
@@ -75,11 +77,11 @@ public class Player extends GameObject {
         float diffY = y - bulb.getY() - 60;
         float distance = (float) Math.sqrt(Math.pow(diffX + 25, 2) + Math.pow(diffY + 25, 2));
 
-        x+= ((-1/distance)*diffX*2);
-        y+= ((-1/distance)*diffY*2);
+        x+= ((-1/distance)*diffX*2)*multiGamePlayGuy;
+        y+= ((-1/distance)*diffY*2)*multiGamePlayGuy;
         velX=Game.clamp(velX,-10,10);
         velY=Game.clamp(velY,-10,10);
-
+       // multiGamePlayGuy=multiGamePlayGuy+0.001f;
 
     }
 

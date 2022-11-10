@@ -25,7 +25,7 @@ public class NajmanMarcin extends GameObject implements Bonus {
 
     public NajmanMarcin(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        this.life=1f;
+        this.life=2f;
         this.height=70;
         this.width=40;
         this.velX=5;

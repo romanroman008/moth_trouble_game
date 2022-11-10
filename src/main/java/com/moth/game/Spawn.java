@@ -9,6 +9,7 @@ import com.moth.game.objects.bonus.Bonus;
 import com.moth.game.objects.bonus.MariuszPudzian;
 import com.moth.game.objects.bonus.MichaelJackson;
 import com.moth.game.objects.bonus.NajmanMarcin;
+import com.moth.game.objects.enemies.Bat;
 import com.moth.game.objects.enemies.Bulb;
 import com.moth.game.objects.enemies.BulbMissile;
 
@@ -45,15 +46,17 @@ public class Spawn {
         if(hud.getScore()==1){
             handler.addObject(new Bulb(Game.WIDTH/2-35,0, ID.Bulb,handler));
             handler.addObject(new Player(Game.WIDTH/2-32,Game.HEIGHT-32, ID.Player,handler));
+            handler.addObject(new Bat(-100,-100,ID.Enemy));
 //            handler.addObject(new MariuszPudzian(Game.WIDTH/2-32,Game.HEIGHT/2-100, ID.Bonus,handler));
 //            handler.addObject(new NajmanMarcin(Game.WIDTH-100,Game.HEIGHT/2-100, ID.Bonus,handler));
 //            handler.addObject(new MichaelJackson(Game.WIDTH-200,Game.HEIGHT/2-100, ID.Bonus,handler));
         }
 
-        if(scoreKeep>=300){
+        if(scoreKeep>=500){
             scoreKeep=0;
             Collections.shuffle(bonusList);
             handler.removeObject(bonusList.get(0));
+            bonusList.get(0).setX(1);
             handler.addObject(bonusList.get(0));
         }
     }

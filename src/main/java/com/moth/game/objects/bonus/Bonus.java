@@ -41,7 +41,7 @@ public interface Bonus {
                life-=0.005f;
            }
            else{
-               life=1f;
+               life=2f;
                gameObject.getHandler().removeObject(gameObject);
             }
 

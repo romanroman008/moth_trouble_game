@@ -18,12 +18,24 @@ public class Game extends Canvas implements Runnable {
     public static final int WIDTH = 1280, HEIGHT = WIDTH / 12 * 9;
     private Thread thread;
     private boolean running = false;
+    public Window window;
 
     private Handler handler;
     private HUD hud;
     private Spawn spawn;
+    private Menu menu;
+
 
     private Random r;
+
+    public enum STATE{
+        MENU,
+        GAME,
+        HELP,
+        END
+    }
+
+    public STATE gameState=STATE.MENU;
 
     public static BufferedImage moth_image;
     public static BufferedImage pudzian_image;
@@ -37,12 +49,16 @@ public class Game extends Canvas implements Runnable {
         hud=new HUD();
         spawn=new Spawn(handler,hud);
         this.addKeyListener(new KeyInput(handler,this));
+        menu=new Menu(this,handler,hud);
+        this.addMouseListener(menu);
 
-        new Window(WIDTH, HEIGHT, "Moth in trouble", this);
+        //if(gameState==STATE.GAME)
 
-        handler.addObject(new Bulb(Game.WIDTH/2-35,0, ID.Bulb,handler));
+        window = new Window(WIDTH/2, HEIGHT/2, "Moth in trouble", this);
+
+
+
         BufferedImageLoader loader= new BufferedImageLoader();
-        //moth_image= ImageIO.read(new FileInputStream("src/main/resources/images/moth.png"));
         moth_image=loader.loadImage("/images/moth.png");
         pudzian_image=loader.loadImage("/images/pudzian.png");
         najman_image=loader.loadImage("/images/najman.png");
@@ -91,20 +107,27 @@ public class Game extends Canvas implements Runnable {
             }
             if (running)
                 render();
-            frames++;     //do sprawdzenia
+            frames++;
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-               // System.out.println("FPS: " + frames);
+                System.out.println("FPS: " + frames);
             }
         }
 
     }
 
     private void tick() {
-        spawn.tick();
-        handler.tick();
-        hud.tick();
 
+        if(gameState==STATE.GAME){
+            spawn.tick();
+            handler.tick();
+            hud.tick();
+        }
+
+    else if(gameState==STATE.MENU||gameState==STATE.END||gameState==STATE.HELP){
+        //menu.tick();
+        handler.tick();
+    }
 
     }
 
@@ -115,11 +138,20 @@ public class Game extends Canvas implements Runnable {
             return;
         }
         Graphics g=bs.getDrawGraphics();
-        g.setColor(Color.GRAY);
-        g.fillRect(0,0,WIDTH,HEIGHT);
-        drawBackground(g);
-        handler.render(g);
-        hud.render(g);
+
+        if(gameState==STATE.GAME){
+            g.setColor(Color.GRAY);
+            g.fillRect(0,0,WIDTH,HEIGHT);
+            drawBackground(g);
+            handler.render(g);
+            hud.render(g);
+        }
+        else if(gameState==STATE.MENU||gameState==STATE.HELP){
+            g.setColor(Color.BLACK);
+            g.fillRect(0,0,WIDTH,HEIGHT);
+            menu.render(g);
+        }
+
         g.dispose();
         bs.show();
     }
