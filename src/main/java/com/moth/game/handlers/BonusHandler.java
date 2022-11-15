@@ -104,6 +104,11 @@ public class BonusHandler {
         }
     }
 
+    public void removeBonuses(){
+        //bonuses.clear();
+        bonuses.values().clear();
+    }
+
 
 
 

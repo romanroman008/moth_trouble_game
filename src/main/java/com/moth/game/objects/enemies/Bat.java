@@ -7,22 +7,43 @@ import com.moth.game.objects.GameObject;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.io.Console;
 import java.util.Random;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.atan;
+import static java.lang.Math.toRadians;
 
 public class Bat extends GameObject {
     Random r;
     int corner;
     float destX;
     float destY;
+    private Handler handler;
     float a;
     float b;
+    private int passageAmount;
     private float diffX;
     private float diffY;
+    private double angle;
+    private int coin;
+    private double tg;
+
 
     public Bat(float x, float y, ID id) {
         super(x, y, id);
-        r=new Random();
-        corner=0;
+        r = new Random();
+        corner = 0;
+        velY = -2;
+    }
+
+    public Bat(float x, float y, int passageAmount, Handler handler, ID id) {
+        super(x, y, id);
+        this.passageAmount = passageAmount + 1;
+        this.handler = handler;
+        r = new Random();
+        corner = 0;
+        velY = -2;
     }
 
     public Bat(float x, float y, float height, float width, float velX, float velY, ID id) {
@@ -40,79 +61,122 @@ public class Bat extends GameObject {
 
     @Override
     public void tick() {
-        if(x<0||x>1280||y<0||y>960) {
-            coordinatesRandomizer();
-//            a=(destX-x)/(destY-y);
-//            b=y-a*x;
-//            velY=a*x+b;
-            if(corner<4)
+        if (x <= -200 || x >= 1480 || y <= -200 || y >= 1200) {
+
+            if (corner <= 3 && passageAmount > 0) {
+                coordinatesRandomizer();
                 corner++;
-            else
-                corner=0;
+                passageAmount--;
+            } else
+                corner = 0;
+
+
+            if (passageAmount == 0) {
+                handler.removeBat();
+            }
 
 
         }
 
-        diffX = x-destX;
-        diffY = y-destY;
-        float distance = (float)Math.sqrt(Math.pow(diffX,2)+Math.pow(diffY,2));
-        x+=((-1/distance)* diffX)*10;
-        y+=((-1/distance)* diffY)*10;
-
-
-//            x+=velX;
-//            y+=velY;
+        x += velX;
+        y += velY;
 
     }
+
+    private boolean throwACoin() {
+        if (r.nextInt(2) == 1)
+            return true;
+        return false;
+
+    }
+
 
     private void coordinatesRandomizer() {
         switch (corner) {
             case 0 -> {
-                x = 1;
-                y =1;
-                destX = 1300;
-                destY = r.nextInt(200,960);
-                //velX=r.nextInt(15)+5;
+                x = 1;                              //left upper corner
+                y = 1;
+                if (throwACoin()) {
+                    destX = 1300;
+                    destY = r.nextInt(500, 1000);
+                } else {
+                    destX = r.nextInt(650, 1300);
+                    destY = 1000;
+                }
+
+                tg = abs(destY) / abs(destX);
+                angle = Math.toRadians(90) + atan(tg);
+
             }
             case 1 -> {
-                x = 1280;
+                x = 1280;                       //right bottom corner
                 y = 960;
-                destX = -20;
-                destY = r.nextInt(200,950);
-               // velX=-(r.nextInt(15)+5);
+
+                if (throwACoin()) {
+                    destX = -10;
+                    destY = r.nextInt(1, 500);
+                } else {
+                    destX = r.nextInt(1, 650);
+                    destY = -10;
+                }
+                tg = abs(x) / abs(Game.HEIGHT - destY);
+                angle = -atan(tg);
             }
             case 2 -> {
-                x = 1;
+                x = 1;                             //left bottom corner
                 y = 960;
-                destX = 1300;
-                destY = r.nextInt(200,960);
-               // velX=-(r.nextInt(15)+5);
+
+                if (throwACoin()) {
+                    destX = 1300;
+                    destY = r.nextInt(1, 500);
+                } else {
+                    destX = r.nextInt(650, 1300);
+                    destY = -10;
+                }
+
+                tg = abs(destX) / abs(Game.HEIGHT - destY);
+                angle = atan(tg);
             }
             case 3 -> {
-                x = 1280;
+                x = 1280;                                           //right upper corner
                 y = -20;
-                destX = r.nextInt(300,1280);
-                destY = 1000;
-               // velX=(r.nextInt(15)+5);
+
+                if (throwACoin()) {
+                    destX = -10;
+                    destY = r.nextInt(500, 1000);
+                } else {
+                    destX = r.nextInt(1, 650);
+                    destY = 1000;
+                }
+                tg = abs(destY) / abs(Game.WIDTH - destX);
+                angle = -Math.toRadians(90) - atan(tg);
             }
+
         }
+
+        diffX = x - destX;
+        diffY = y - destY;
+        float distance = (float) Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+        velX = ((-1 / distance) * diffX) * 15;
+        velY = ((-1 / distance) * diffY) * 15;
+
+
     }
+
 
     @Override
     public void render(Graphics g) {
-//        g.setColor(Color.white);
-//        g.fillRect((int)x,(int)y,20,20);
-        Graphics2D g2d=(Graphics2D) g;
-     //   AffineTransform old=g2d.getTransform();
-        //g2d.rotate(Math.tan(diffY/diffX));
-      //  g2d.rotate(Math.toRadians(270));
-        g2d.drawImage(Game.moth_image,(int)x,(int)y,70,50,null);
-      //  g2d.setTransform(old);
+        Graphics2D g2d = (Graphics2D) g;
+        AffineTransform old = g2d.getTransform();
+
+        g2d.rotate(angle, (int) x, (int) y);
+        g2d.drawImage(Game.bat_image, (int) x, (int) y, 350, 200, null);
+        g2d.setTransform(old);
 
     }
 
     @Override
     public Rectangle getBounds() {
-        return null;
+         return new Rectangle((int)x,(int)y,280,200);
     }
 }

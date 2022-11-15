@@ -4,5 +4,6 @@ public enum ID {
     Player(),
     Bulb(),
     Enemy(),
+    Bat(),
     Bonus();
 }

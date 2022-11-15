@@ -53,6 +53,16 @@ public class Handler {
         objects.removeIf(o -> o.getId().equals(ID.Player));
     }
 
+    public void removeBat(){
+        objects.removeIf(o -> o.getId().equals(ID.Bat));
+    }
+
+
+
+    public void removeBonusesAndEnemies(){
+        objects.removeIf(o->o.getId()==ID.Bonus||o.getId()==ID.Enemy);
+    }
+
     public LinkedList<GameObject> getObjects() {
         return objects;
     }

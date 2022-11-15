@@ -35,7 +35,7 @@ public class Game extends Canvas implements Runnable {
         END
     }
 
-    public STATE gameState=STATE.MENU;
+    public STATE gameState=STATE.GAME;
 
     public static BufferedImage moth_image;
     public static BufferedImage pudzian_image;
@@ -43,6 +43,7 @@ public class Game extends Canvas implements Runnable {
     public static BufferedImage michael_jackson_image;
     public static BufferedImage lamp_image;
     public static BufferedImage bulb_image;
+    public static BufferedImage bat_image;
 
     public Game() {
         handler = new Handler(this);
@@ -55,7 +56,7 @@ public class Game extends Canvas implements Runnable {
         //if(gameState==STATE.GAME)
 
         window = new Window(WIDTH/2, HEIGHT/2, "Moth in trouble", this);
-
+        window.changeSize(WIDTH,HEIGHT);
 
 
         BufferedImageLoader loader= new BufferedImageLoader();
@@ -65,6 +66,7 @@ public class Game extends Canvas implements Runnable {
         michael_jackson_image=loader.loadImage("/images/mj.png");
         lamp_image=loader.loadImage("/images/lamp.png");
         bulb_image=loader.loadImage("/images/bulb.png");
+        bat_image=loader.loadImage("/images/bat.png");
 
 
 

@@ -102,13 +102,14 @@ public class Player extends GameObject {
     public void render(Graphics g) {
 //        g.setColor(Color.white);
 //        g.fillRect((int) x, (int) y, 32, 32);
-        Graphics2D g2d=(Graphics2D)g;
-        AffineTransform old=g2d.getTransform();
+        //Graphics2D g2d=(Graphics2D)g;
+       // AffineTransform old=g2d.getTransform();
         //g2d.rotate(Math.tan(diffY/diffX));
-        g2d.rotate(Math.toRadians(45));
+       // g2d.rotate(-Math.toRadians(90),x,y);
+       // g2d.rotate(-Math.atan(Math.tan(1))-Math.toRadians(45),x,y);
 
-        g2d.drawImage(Game.moth_image,(int)x,(int)y,70,50,null);
-        g2d.setTransform(old);
+        g.drawImage(Game.moth_image,(int)x,(int)y,70,50,null);
+       // g2d.setTransform(old);
 
     }
 
