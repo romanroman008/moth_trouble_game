@@ -7,6 +7,7 @@ import com.moth.game.enums.ID;
 import com.moth.game.objects.Trail;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.Random;
 
 public class BulbMissile extends GameObject {
@@ -19,7 +20,7 @@ public class BulbMissile extends GameObject {
     public BulbMissile(float x, float y, ID id, float velY, Handler handler) {
         super(x, y, id);
 
-        color=new Color(255,255,153);
+        color=new Color(255,255,153,70);
         this.handler = handler;
         r = new Random();
        // this.velY = velY;
@@ -48,14 +49,14 @@ public class BulbMissile extends GameObject {
         if(collision())
             handler.getPlayer().setGotcha();
 
-        handler.addObject(new Trail(x, y, 16, 16, color, 0.05f, ID.Enemy, handler));
+       // handler.addObject(new Trail(x, y, 16, 16, color, 0.05f, ID.Enemy, handler));
     }
 
     private boolean collision(){
         for (GameObject object : handler.getObjects()) {
             if(object.getId()== ID.Player){
                 if(getBounds().intersects(object.getBounds())) {
-                    System.out.println("gotcha");
+                   // System.out.println("gotcha");
                     return true;
                 }
             }
@@ -65,12 +66,14 @@ public class BulbMissile extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        Graphics2D g2d=(Graphics2D) g;
+       // Graphics2D g2d=(Graphics2D) g;
         //g2d.setComposite(makeTransparent(0.5F));
-        g2d.setColor(new Color(255,255,153));
-       // g.fillRect((int)x,(int)y,16,16);
-        g2d.fillOval((int)x,(int)y,16,16);
-       // g2d.setComposite(makeTransparent(0.1f));
+       // g2d.setComposite(makeTransparent(0.5f));
+        g.setColor(new Color(255,255,153,100));
+       // g.fillRect((int)x,(int)y,16,16);\
+
+        g.fillOval((int)x,(int)y,16,16);
+      // g2d.setComposite(makeTransparent(1));
     }
 
     private AlphaComposite makeTransparent(float alpha) {

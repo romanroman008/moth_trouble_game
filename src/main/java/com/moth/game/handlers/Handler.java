@@ -27,7 +27,12 @@ public class Handler {
     }
 
     public void render(Graphics g) {
-        objects.forEach(o -> o.render(g));
+        //objects.forEach(o -> o.render(g));
+        for (int i = 0; i < objects.size(); i++) {
+            GameObject tempObject = objects.get(i);
+
+            tempObject.render(g);
+        }
         bonusHandler.render(g);
     }
 
@@ -55,6 +60,10 @@ public class Handler {
 
     public void removeBat(){
         objects.removeIf(o -> o.getId().equals(ID.Bat));
+    }
+
+    public void clearMenuParticles(){
+        objects.removeIf(o->o.getId().equals(ID.MenuParticle));
     }
 
 

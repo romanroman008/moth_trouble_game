@@ -61,6 +61,6 @@ public class MichaelJackson extends GameObject  implements Bonus {
 
     @Override
     public void bonusDepower() {
-        getHandler().getPlayer().setBonusSpeedMultiplier(0);
+        getHandler().getPlayer().setBonusSpeedMultiplier(-1);
     }
 }

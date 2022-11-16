@@ -42,7 +42,7 @@ public class BonusHandler {
             bonuses.forEach((k,v)->{
                 switch(k.getBonusType()){
                     case NAJMAN -> {
-                        g.setColor(Color.orange);
+                        g.setColor(Color.BLUE);
                         g.setFont(font);
                         g.drawString("Weź sie rozpędź i jebnij łbem o ścianę",15,30);
                     }
@@ -54,7 +54,13 @@ public class BonusHandler {
                     case MICHAEL_JACKSON -> {
                         g.setColor(Color.WHITE);
                         g.setFont(font);
-                        g.drawString("Beat it pigs, hide ur kids",15,30);
+                        g.drawString("Moonwalk",15,30);
+
+                    }
+                    case PIZZA -> {
+                        g.setColor(Color.ORANGE);
+                        g.setFont(font);
+                        g.drawString("Mamma mia, too much pizzerinia",15,30);
 
                     }
                 }

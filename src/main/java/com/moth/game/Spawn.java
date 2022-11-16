@@ -5,10 +5,7 @@ import com.moth.game.handlers.BonusHandler;
 import com.moth.game.handlers.Handler;
 import com.moth.game.objects.GameObject;
 import com.moth.game.objects.Player;
-import com.moth.game.objects.bonus.Bonus;
-import com.moth.game.objects.bonus.MariuszPudzian;
-import com.moth.game.objects.bonus.MichaelJackson;
-import com.moth.game.objects.bonus.NajmanMarcin;
+import com.moth.game.objects.bonus.*;
 import com.moth.game.objects.enemies.Bat;
 import com.moth.game.objects.enemies.Bulb;
 import com.moth.game.objects.enemies.BulbMissile;
@@ -31,9 +28,11 @@ public class Spawn {
         this.hud=hud;
         r=new Random();
         bonusList=new ArrayList<>();
+
         bonusList.add(new MariuszPudzian(Game.WIDTH/2-32,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new NajmanMarcin(Game.WIDTH-100,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new MichaelJackson(Game.WIDTH-200,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new Pizza(Game.WIDTH-200,Game.HEIGHT/2-100, ID.Bonus,handler));
     }
 
     public void tick(){

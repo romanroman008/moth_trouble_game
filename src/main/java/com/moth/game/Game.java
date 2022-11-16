@@ -4,7 +4,7 @@ import com.moth.game.enums.ID;
 import com.moth.game.graphics.BufferedImageLoader;
 import com.moth.game.handlers.Handler;
 import com.moth.game.inputs.KeyInput;
-import com.moth.game.objects.enemies.Bulb;
+import com.moth.game.objects.MenuParticle;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -35,7 +35,7 @@ public class Game extends Canvas implements Runnable {
         END
     }
 
-    public STATE gameState=STATE.GAME;
+    public STATE gameState=STATE.MENU;
 
     public static BufferedImage moth_image;
     public static BufferedImage pudzian_image;
@@ -44,6 +44,9 @@ public class Game extends Canvas implements Runnable {
     public static BufferedImage lamp_image;
     public static BufferedImage bulb_image;
     public static BufferedImage bat_image;
+    public static BufferedImage pizza_image;
+    public static BufferedImage paper_image;
+    public static BufferedImage background_image;
 
     public Game() {
         handler = new Handler(this);
@@ -56,7 +59,7 @@ public class Game extends Canvas implements Runnable {
         //if(gameState==STATE.GAME)
 
         window = new Window(WIDTH/2, HEIGHT/2, "Moth in trouble", this);
-        window.changeSize(WIDTH,HEIGHT);
+      //  window.changeSize(WIDTH,HEIGHT);
 
 
         BufferedImageLoader loader= new BufferedImageLoader();
@@ -67,9 +70,13 @@ public class Game extends Canvas implements Runnable {
         lamp_image=loader.loadImage("/images/lamp.png");
         bulb_image=loader.loadImage("/images/bulb.png");
         bat_image=loader.loadImage("/images/bat.png");
+        pizza_image=loader.loadImage("/images/pizza.png");
+        paper_image=loader.loadImage("/images/paper.png");
+        background_image=loader.loadImage("/images/background.png");
 
 
 
+        handler.addObject(new MenuParticle(100,100,ID.MenuParticle));
 
 
 
@@ -121,6 +128,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
 
         if(gameState==STATE.GAME){
+            handler.clearMenuParticles();
             spawn.tick();
             handler.tick();
             hud.tick();
@@ -142,16 +150,18 @@ public class Game extends Canvas implements Runnable {
         Graphics g=bs.getDrawGraphics();
 
         if(gameState==STATE.GAME){
-            g.setColor(Color.GRAY);
-            g.fillRect(0,0,WIDTH,HEIGHT);
+           // g.setColor(Color.GRAY);
+           // g.fillRect(0,0,WIDTH,HEIGHT);
+            g.drawImage(background_image,0,0,Game.WIDTH,Game.HEIGHT,null);
             drawBackground(g);
             handler.render(g);
             hud.render(g);
         }
         else if(gameState==STATE.MENU||gameState==STATE.HELP){
-            g.setColor(Color.BLACK);
-            g.fillRect(0,0,WIDTH,HEIGHT);
+//            g.setColor(Color.BLACK);
+//            g.fillRect(0,0,WIDTH,HEIGHT);
             menu.render(g);
+            handler.render(g);
         }
 
         g.dispose();
@@ -182,7 +192,7 @@ public class Game extends Canvas implements Runnable {
 
         int x[]={0,0,Game.WIDTH/2};
         int y[]={0,240,0};
-        g.setColor(Color.BLACK);
+        g.setColor(new Color(0,0,0,127));
         Polygon p1=new Polygon(x,y,3);   //left corner
         g.drawPolygon(p1);
         g.fillPolygon(p1);

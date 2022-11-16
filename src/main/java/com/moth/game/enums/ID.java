@@ -5,5 +5,6 @@ public enum ID {
     Bulb(),
     Enemy(),
     Bat(),
+    MenuParticle(),
     Bonus();
 }
