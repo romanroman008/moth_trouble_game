@@ -169,7 +169,7 @@ public class Bat extends GameObject {
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform old = g2d.getTransform();
 
-        g2d.rotate(angle, (int) x, (int) y);
+        g2d.rotate(angle, (int) x+175, (int) y+100);
         g2d.drawImage(Game.bat_image, (int) x, (int) y, 350, 200, null);
         g2d.setTransform(old);
 
@@ -177,6 +177,7 @@ public class Bat extends GameObject {
 
     @Override
     public Rectangle getBounds() {
-         return new Rectangle((int)x,(int)y,280,200);
+       //  return new Rectangle((int)x,(int)y,350,200);
+        return new Rectangle((int)x,(int)y,300,150);
     }
 }

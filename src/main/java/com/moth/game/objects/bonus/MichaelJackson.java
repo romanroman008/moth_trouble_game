@@ -24,7 +24,6 @@ public class MichaelJackson extends GameObject  implements Bonus {
 
     public MichaelJackson(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        life=2f;
         this.height=70;
         this.width=30;
         this.velX=5;
@@ -33,7 +32,7 @@ public class MichaelJackson extends GameObject  implements Bonus {
 
     @Override
     public void tick() {
-        life=tick(this,life);
+       tick(this);
     }
 
     @Override
@@ -61,6 +60,6 @@ public class MichaelJackson extends GameObject  implements Bonus {
 
     @Override
     public void bonusDepower() {
-        getHandler().getPlayer().setBonusSpeedMultiplier(-1);
+        getHandler().getPlayer().setBonusSpeedMultiplier(0);
     }
 }

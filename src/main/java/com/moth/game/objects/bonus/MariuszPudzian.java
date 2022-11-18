@@ -14,7 +14,6 @@ public class MariuszPudzian extends GameObject implements Bonus {
 
     public MariuszPudzian(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        life=2f;
         this.height=70;
         this.width=50;
         this.velX=5;
@@ -31,7 +30,7 @@ public class MariuszPudzian extends GameObject implements Bonus {
 
     @Override
     public void tick() {
-        life=tick(this,life);
+        tick(this);
 
     }
 

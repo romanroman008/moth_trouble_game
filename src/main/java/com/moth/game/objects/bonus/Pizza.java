@@ -12,7 +12,6 @@ public class Pizza extends GameObject implements Bonus {
     float life;
     public Pizza(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        life=2f;
         this.height=50;
         this.width=50;
         this.velX=5;
@@ -21,7 +20,7 @@ public class Pizza extends GameObject implements Bonus {
 
     @Override
     public void tick() {
-        tick(this,life);
+        tick(this);
     }
 
     @Override

@@ -4,5 +4,6 @@ public enum BonusType {
     PUDZIAN,
     NAJMAN,
     MICHAEL_JACKSON,
-    PIZZA
+    PIZZA,
+    PAPAJ
 }

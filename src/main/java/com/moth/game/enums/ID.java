@@ -6,5 +6,6 @@ public enum ID {
     Enemy(),
     Bat(),
     MenuParticle(),
+    MenuBat(),
     Bonus();
 }

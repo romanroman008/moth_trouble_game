@@ -31,10 +31,12 @@ public class Bulb extends GameObject {
 //        g.fillOval((int) x, (int) y, 70, 100);
        //g.drawImage(Game.lamp_image,(int)x,(int)y,70,100,null);
         //g.drawImage(Game.lamp_image,(int)x,(int)y,null);
+        g.drawImage(Game.bulb_image,Game.WIDTH/2-40,44,80,100,null);
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle((int) x, (int) y, 50, 50);
+      //  return new Rectangle((int) x, (int) y+25, 50, 50);
+        return new Rectangle(Game.WIDTH/2-40,44,80,100);
     }
 }

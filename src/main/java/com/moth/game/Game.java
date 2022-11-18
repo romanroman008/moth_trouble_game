@@ -3,6 +3,7 @@ package com.moth.game;
 import com.moth.game.enums.ID;
 import com.moth.game.graphics.BufferedImageLoader;
 import com.moth.game.handlers.Handler;
+import com.moth.game.handlers.Spawn;
 import com.moth.game.inputs.KeyInput;
 import com.moth.game.objects.MenuParticle;
 
@@ -24,6 +25,8 @@ public class Game extends Canvas implements Runnable {
     private HUD hud;
     private Spawn spawn;
     private Menu menu;
+    public static boolean end;
+
 
 
     private Random r;
@@ -47,6 +50,9 @@ public class Game extends Canvas implements Runnable {
     public static BufferedImage pizza_image;
     public static BufferedImage paper_image;
     public static BufferedImage background_image;
+    public static BufferedImage papiez_image;
+    public static BufferedImage kremowka_image;
+    public static BufferedImage zyrandol_image;
 
     public Game() {
         handler = new Handler(this);
@@ -59,7 +65,7 @@ public class Game extends Canvas implements Runnable {
         //if(gameState==STATE.GAME)
 
         window = new Window(WIDTH/2, HEIGHT/2, "Moth in trouble", this);
-      //  window.changeSize(WIDTH,HEIGHT);
+        //window.changeSize(WIDTH,HEIGHT);
 
 
         BufferedImageLoader loader= new BufferedImageLoader();
@@ -73,10 +79,17 @@ public class Game extends Canvas implements Runnable {
         pizza_image=loader.loadImage("/images/pizza.png");
         paper_image=loader.loadImage("/images/paper.png");
         background_image=loader.loadImage("/images/background.png");
+        papiez_image=loader.loadImage("/images/papiez.png");
+        kremowka_image=loader.loadImage("/images/kremowka.png");
+        zyrandol_image=loader.loadImage("/images/bulb2.png");
 
 
+//        MenuParticle menuParticle=new MenuParticle(100,100, ID.MenuParticle,handler);
+//        menuParticle.thisIsTheEnd=true;
+//        handler.addObject(menuParticle);
 
-        handler.addObject(new MenuParticle(100,100,ID.MenuParticle));
+        handler.addObject(new MenuParticle(100,100,ID.MenuParticle,handler));
+
 
 
 
@@ -132,13 +145,40 @@ public class Game extends Canvas implements Runnable {
             spawn.tick();
             handler.tick();
             hud.tick();
+            if(end){
+                finish();
+            }
         }
 
     else if(gameState==STATE.MENU||gameState==STATE.END||gameState==STATE.HELP){
         //menu.tick();
+
         handler.tick();
     }
 
+
+    }
+
+//
+//    public static void endGame(){
+//        gameState=STATE.END;
+//    }
+    public void reset(){
+        hud.resetScore();
+        handler.removeAll();
+
+        handler.addObject(new MenuParticle(100,100,ID.MenuParticle,handler));
+    }
+
+    public void finish(){
+        handler.getBonusHandler().removeBonuses();
+        window.changeSize(Game.WIDTH/2,Game.HEIGHT/2);
+        gameState=STATE.END;
+        end=false;
+        handler.removeAll();
+        MenuParticle menuParticle=new MenuParticle(100,100, ID.MenuParticle,handler);
+        menuParticle.thisIsTheEnd=true;
+        handler.addObject(menuParticle);
     }
 
     private void render() {
@@ -150,16 +190,13 @@ public class Game extends Canvas implements Runnable {
         Graphics g=bs.getDrawGraphics();
 
         if(gameState==STATE.GAME){
-           // g.setColor(Color.GRAY);
-           // g.fillRect(0,0,WIDTH,HEIGHT);
+
             g.drawImage(background_image,0,0,Game.WIDTH,Game.HEIGHT,null);
             drawBackground(g);
             handler.render(g);
             hud.render(g);
         }
-        else if(gameState==STATE.MENU||gameState==STATE.HELP){
-//            g.setColor(Color.BLACK);
-//            g.fillRect(0,0,WIDTH,HEIGHT);
+        else if(gameState==STATE.MENU||gameState==STATE.HELP||gameState==STATE.END){
             menu.render(g);
             handler.render(g);
         }
@@ -167,6 +204,8 @@ public class Game extends Canvas implements Runnable {
         g.dispose();
         bs.show();
     }
+
+
 
     public static float clamp(float var,float min,float max){
         if(var>max)
@@ -179,16 +218,7 @@ public class Game extends Canvas implements Runnable {
 
     public static void drawBackground(Graphics g){
         g.setColor(Color.DARK_GRAY);
-//        int x3[]={Game.WIDTH/2-133,Game.WIDTH/2,Game.WIDTH/2+133};   //relatywnosc do zarowki jou
-//        int y3[]={30,0,30};
-//        Polygon p3=new Polygon(x3,y3,3);
-//        g.drawPolygon(p3);
-//        g.fillPolygon(p3);
-//
-//        g.drawOval(Game.WIDTH/2-133,20,266,30);
-//        g.fillOval(Game.WIDTH/2-133,20,266,30);
 
-       // g.drawImage(Game.lamp_image,Game.WIDTH/2-35,100,70,100,null);
 
         int x[]={0,0,Game.WIDTH/2};
         int y[]={0,240,0};
@@ -203,6 +233,7 @@ public class Game extends Canvas implements Runnable {
         g.drawPolygon(p2);
         g.fillPolygon(p2);
 
+       // g.drawImage(zyrandol_image,Game.WIDTH/2-150,0,70,120,null);
         g.drawImage(lamp_image,Game.WIDTH/2-150,-128,300,200,null);
         g.drawImage(bulb_image,Game.WIDTH/2-40,44,80,100,null);
 
@@ -213,3 +244,109 @@ public class Game extends Canvas implements Runnable {
         new Game();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

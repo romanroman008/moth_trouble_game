@@ -5,21 +5,18 @@ import com.moth.game.handlers.Handler;
 import com.moth.game.enums.ID;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 public class Player extends GameObject {
 
     Handler handler;
     GameObject bulb;
-    // HashMap<BonusType,Integer> bonuses;
     int counter;
     float bonusSpeedMultiplier;
     boolean gotcha=false;
-    boolean instantLose=false;
+    boolean turnOffKeys =false;
     private float multiGamePlayGuy;
 
-    private BufferedImage player_image;
+
 
     public Player(float x, float y, ID id, Handler handler) {
         super(x, y, id);
@@ -27,8 +24,6 @@ public class Player extends GameObject {
         velY = 0;
         counter=0;
         multiGamePlayGuy=1;
-        player_image=Game.moth_image;
-       // bonuses=new HashMap<>();
         this.handler = handler;
         this.bulb = handler.getObjects().stream()
                 .filter(b -> b.getId().equals(ID.Bulb))
@@ -38,7 +33,12 @@ public class Player extends GameObject {
 
     @Override
     public void tick() {
-        if((!gotcha)&&!instantLose){
+
+        if(collision()){
+            setInstantLose();
+        }
+
+        if((!gotcha)&&!turnOffKeys){
             if(bonusSpeedMultiplier!=0){
                 x += velX * bonusSpeedMultiplier;
                 y += velY * bonusSpeedMultiplier;
@@ -67,9 +67,7 @@ public class Player extends GameObject {
         }
 
 
-//        if(!bonuses.isEmpty()){
-//           bonusCountdown();
-//        }
+
 
 
 
@@ -91,8 +89,6 @@ public class Player extends GameObject {
         if(counter>=100){
             counter=0;
             gotcha=false;
-//            bonuses.forEach((k,v)->v--);
-//            bonuses.entrySet().removeIf(b->b.getValue()==0);
         }
     }
 
@@ -100,16 +96,7 @@ public class Player extends GameObject {
 
     @Override
     public void render(Graphics g) {
-//        g.setColor(Color.white);
-//        g.fillRect((int) x, (int) y, 32, 32);
-        //Graphics2D g2d=(Graphics2D)g;
-       // AffineTransform old=g2d.getTransform();
-        //g2d.rotate(Math.tan(diffY/diffX));
-       // g2d.rotate(-Math.toRadians(90),x,y);
-       // g2d.rotate(-Math.atan(Math.tan(1))-Math.toRadians(45),x,y);
-
         g.drawImage(Game.moth_image,(int)x,(int)y,70,50,null);
-       // g2d.setTransform(old);
 
     }
 
@@ -117,17 +104,6 @@ public class Player extends GameObject {
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, 65, 52);
     }
-
-//    public void addBonus(BonusType bonus){
-//        if(!bonuses.containsKey(bonus)){
-//            this.bonuses.put(bonus,5);
-//        }
-//        else{
-//            this.bonuses.remove(bonus);
-//            this.bonuses.put(bonus,5);
-//        }
-//
-//    }
 
 
     public float getBonusSpeedMultiplier() {
@@ -139,10 +115,32 @@ public class Player extends GameObject {
     }
 
     public void setGotcha() {
-        this.gotcha = true;
+       // Game.end=true;
+        if(!this.gotcha){
+           // Game.end=true;
+          //  System.out.println("Gotya");
+            this.gotcha = true;
+        }
+
     }
 
-    public void setInstantLose(){
-        this.instantLose=true;
+    private boolean collision() {
+        for (GameObject object : handler.getObjects()) {
+            if (object.getId() == ID.Bat||object.getId()== ID.Bulb) {
+                if (getBounds().intersects(object.getBounds())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void turnOffKeys(){
+        this.turnOffKeys =true;
+    }
+
+    private void setInstantLose(){
+        Game.end=true;
+        System.out.println("tu");
     }
 }

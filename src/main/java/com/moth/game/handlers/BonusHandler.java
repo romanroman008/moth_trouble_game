@@ -18,10 +18,12 @@ public class BonusHandler {
     Handler handler;
     GameObject player;
     HashMap<Bonus,Integer> bonuses = new HashMap<>();
+    float transparency;
 
     public BonusHandler(Game game, Handler handler) {
         this.game = game;
         this.handler = handler;
+        transparency = 0.00001f;
         //player=handler.getPlayer();
     }
 
@@ -63,10 +65,26 @@ public class BonusHandler {
                         g.drawString("Mamma mia, too much pizzerinia",15,30);
 
                     }
+                    case PAPAJ -> {
+                        Graphics2D g2d=(Graphics2D)g;
+                        g2d.setComposite(makeTransparent(transparency));
+                        if(v>3)
+                        transparency+=0.00001f;
+                        else
+                            if(transparency>0.00003f)
+                            transparency-=0.00003f;
+                        g2d.drawImage(Game.papiez_image,0,0, Game.WIDTH,Game.HEIGHT,null);
+                        g2d.setComposite(makeTransparent(1));
+                    }
                 }
             });
         }
 
+    }
+
+    private AlphaComposite makeTransparent(float alpha) {
+        int type = AlphaComposite.SRC_OVER;
+        return (AlphaComposite.getInstance(type, alpha));
     }
 
 //    private void centerString(Graphics g, Rectangle r, String s, Font font) {
@@ -102,8 +120,11 @@ public class BonusHandler {
             bonuses.forEach((k,v)->bonuses.put(k,v-1));
             //bonuses.forEach((x,y)->System.out.println(y));
             bonuses.forEach((k,v)->{
-                if(v==0)
+                if(v==0){
                     k.bonusDepower();
+                    transparency=0.0000001f;
+                }
+
             });
             bonuses.entrySet().removeIf(b->b.getValue()==0);
 

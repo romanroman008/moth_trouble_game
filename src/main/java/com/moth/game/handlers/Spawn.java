@@ -1,5 +1,7 @@
-package com.moth.game;
+package com.moth.game.handlers;
 
+import com.moth.game.Game;
+import com.moth.game.HUD;
 import com.moth.game.enums.ID;
 import com.moth.game.handlers.BonusHandler;
 import com.moth.game.handlers.Handler;
@@ -29,10 +31,11 @@ public class Spawn {
         r=new Random();
         bonusList=new ArrayList<>();
 
-        bonusList.add(new MariuszPudzian(Game.WIDTH/2-32,Game.HEIGHT/2-100, ID.Bonus,handler));
-        bonusList.add(new NajmanMarcin(Game.WIDTH-100,Game.HEIGHT/2-100, ID.Bonus,handler));
-        bonusList.add(new MichaelJackson(Game.WIDTH-200,Game.HEIGHT/2-100, ID.Bonus,handler));
-        bonusList.add(new Pizza(Game.WIDTH-200,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new MariuszPudzian(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new NajmanMarcin(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new MichaelJackson(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new Pizza(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new Papiez(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
     }
 
     public void tick(){
@@ -58,7 +61,8 @@ public class Spawn {
 
         if(hud.getScore()==1){
             handler.addObject(new Bulb(Game.WIDTH/2-35,0, ID.Bulb,handler));
-            handler.addObject(new Player(Game.WIDTH/2-32,Game.HEIGHT/2, ID.Player,handler));
+            handler.addObject(new Player(Game.WIDTH/2-32,Game.HEIGHT-100, ID.Player,handler));
+          //  handler.addObject(new Bat(-300,-300,4,handler,ID.Bat));
                       //  handler.addObject(new Bat(-300,-300,ID.Enemy));
 
 //            handler.addObject(new MariuszPudzian(Game.WIDTH/2-32,Game.HEIGHT/2-100, ID.Bonus,handler));
@@ -70,13 +74,14 @@ public class Spawn {
             //scoreKeep=0;
            // batTimer++;
             Collections.shuffle(bonusList);
-            handler.removeObject(bonusList.get(0));
-            bonusList.get(0).setX(1);
+          //  handler.removeObject(bonusList.get(0));
+            bonusList.get(0).setX(-100);
+            bonusList.get(0).setY(Game.HEIGHT/2-100);
             handler.addObject(bonusList.get(0));
         }
 
        // if(hud.getScore()==100)
-        if(scoreKeep==1000)
+        if(scoreKeep==2000)
         {
             scoreKeep=0;
             handler.removeBonusesAndEnemies();

@@ -8,12 +8,14 @@ import com.moth.game.objects.GameObject;
 
 import java.awt.*;
 
-public class NajmanMarcin extends GameObject implements Bonus {
+public class Papiez extends GameObject implements Bonus {
 
-    public NajmanMarcin(float x, float y, ID id, Handler handler) {
+    float life;
+
+    public Papiez(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        this.height=70;
-        this.width=40;
+        this.height=50;
+        this.width=50;
         this.velX=5;
         this.velY=5;
     }
@@ -21,28 +23,26 @@ public class NajmanMarcin extends GameObject implements Bonus {
     @Override
     public void tick() {
         tick(this);
-
     }
 
     @Override
     public void render(Graphics g) {
-     //   render(g,this);
-        g.drawImage(Game.najman_image,(int)x,(int)y,40,70,null);
+        g.drawImage(Game.kremowka_image,(int)x,(int)y,(int)width,(int)height,null);
     }
 
     @Override
     public Rectangle getBounds() {
-       return getBounds(this);
+        return new Rectangle((int)x,(int)y,(int)width,(int)width);
     }
 
     @Override
     public BonusType getBonusType() {
-        return BonusType.NAJMAN;
+        return BonusType.PAPAJ;
     }
 
     @Override
     public void bonusPower() {
-        getHandler().getPlayer().turnOffKeys();
+
     }
 
     @Override
