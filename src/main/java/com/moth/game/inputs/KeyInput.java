@@ -28,33 +28,37 @@ public class KeyInput extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
-        for (GameObject object : this.handler.getObjects()) {
-            if (object.getId() == ID.Player) {
-                if (key == KeyEvent.VK_LEFT) {
-                    object.setVelX(-5);
-                   // object.changeVelX(-2);
-                    keyDown[0] = true;
-                }
-                if (key == KeyEvent.VK_RIGHT) {
-                    object.setVelX(5);
-                   // object.changeVelX(2);
-                    keyDown[1] = true;
-                }
-                if (key == KeyEvent.VK_UP) {
-                    object.setVelY(-5);
-                    //while(keyDown[2])
-                    //object.changeVelY(-2);
-                    keyDown[2] = true;
-                }
+        if(game.gameState== Game.STATE.GAME){
+            for (GameObject object : this.handler.getObjects()) {
+                if (object.getId() == ID.Player) {            //setting player velocity
+                    if (key == KeyEvent.VK_LEFT) {         //left
+                        object.setVelX(-5);
+                        keyDown[0] = true;
+                    }
+                    if (key == KeyEvent.VK_RIGHT) {        //right
+                        object.setVelX(5);
+                        keyDown[1] = true;
+                    }
+                    if (key == KeyEvent.VK_UP) {          //up
+                        object.setVelY(-5);
+                        keyDown[2] = true;
+                    }
 
-                if (key == KeyEvent.VK_DOWN) {
-                    object.setVelY(5);
-                    //object.changeVelY(2);
-                    keyDown[3] = true;
-                }
+                    if (key == KeyEvent.VK_DOWN) {      //down
+                        object.setVelY(5);
+                        keyDown[3] = true;
+                    }
 
+                }
+            }
+            if(key==KeyEvent.VK_P){     //game pause
+                if(!game.pause)
+                game.pause=true;
+                else
+                    game.pause=false;
             }
         }
+
 
 
     }
@@ -74,7 +78,7 @@ public class KeyInput extends KeyAdapter {
 
 
                 //horizontal movement
-                if (!keyDown[0] && !keyDown[1])
+                if (!keyDown[0] && !keyDown[1])                //preventing player from sliding
                     object.setVelX(0);
                 //vertical movement
                 if (!keyDown[2] && !keyDown[3])

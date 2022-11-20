@@ -86,64 +86,55 @@ public class Menu extends MouseAdapter  {
 //    }
 
     public void render(Graphics g){
-        Font font = new Font(Font.SERIF, 3, 50);
-       // Font font = new Font("arial", 1, 50);
-        Font font2 = new Font(Font.SERIF, 3, 30);
-        Font font3 = new Font(Font.SERIF, 3, 20);
-        Color color=new Color(51,25,0);
+       // Color color=new Color(51,25,0);
         Graphics2D g2d=(Graphics2D)g;
 
         if (game.gameState == Game.STATE.MENU) {
-//            Font font = new Font("arial", 1, 50);
-//            Font font2 = new Font("arial", 1, 30);
             drawMenuBackground(g);
 
             g2d.setStroke(new BasicStroke(4));
-            g.setColor(color);
-            g.setFont(font);
+            g.setColor(HUD.color);
+            g.setFont(HUD.hugeFont);
             g.drawString("Menu", 255, 80);
 
-            g.setFont(font2);
-            g.drawString("Play", 290, 160);
+            g.setFont(HUD.bigFont);
+            g.drawString("Zagraj", 270, 160);
             g.drawRect(220, 120, 200, 60);
 
 
 
-            g.setColor(color);
-            g.drawString("Help", 290, 260);
+            g.setColor(HUD.color);
+            g.drawString("Pomoc", 270, 260);
             g.drawRect(220, 220, 200, 60);
 
 
-            g.drawString("Quit", 290, 360);
+            g.drawString("Wyjście", 263, 360);
             g.drawRect(220, 320, 200, 60);
         } else if (game.gameState == Game.STATE.HELP) {
 
             drawMenuBackground(g);
             g2d.setStroke(new BasicStroke(4));
 
-            g.setFont(font2);
-//            g.drawString("Używaj strzałek do poruszania się. ", 120, 150);
-//            g.drawString("Używaj strzałek do poruszania się. ", 120, 180);
-              g.drawString("Nauczysz sie wariacie.", 160, 230);
+            g.setFont(HUD.mediumFont);
+              g.drawString("Dasz radę wariacie.", 180, 230);
              g.drawRect(100, 120, 400, 200);
 
 
-            g.setFont(font2);
+            g.setFont(HUD.mediumFont);
             g.drawString("Wróć", 265, 390);
             g.drawRect(225, 355, 150, 50);
         }
         else if(game.gameState== Game.STATE.END){
             drawEndBackground(g);
             g2d.setStroke(new BasicStroke(4));
-            g.setColor(color);
+            g.setColor(HUD.color);
 
-            g.setFont(font);
-           // g.drawString("Netopýr tě sežral", 100, 200);
-            g.drawString("Spálila tě lampa", 150, 150);
-            g.drawString("nebo tě sežral netopýr.", 100, 200);
-            g.drawString("Twój wynik: " + hud.getScore(), 150, 260);
+            g.setFont(HUD.hugeFont);
+            g.drawString("Spálila tě lampa", 130, 150);
+            g.drawString("nebo tě sežral netopýr", 50, 200);
+            g.drawString("Twój wynik: " + hud.getScore(), 120, 270);
 
-            g.setFont(font2);
+            g.setFont(HUD.mediumFont);
             g.drawString("Spróbuj ponownie", 210, 360);
             g.drawRect(190, 320, 260, 60);
         }

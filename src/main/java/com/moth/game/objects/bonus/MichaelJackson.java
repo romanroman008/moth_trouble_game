@@ -8,31 +8,19 @@ import com.moth.game.objects.GameObject;
 
 import java.awt.*;
 
-public class MichaelJackson extends GameObject  implements Bonus {
-    float life;
-    public MichaelJackson(float x, float y, ID id) {
-        super(x, y, id);
-    }
-
-    public MichaelJackson(float x, float y, float height, float width, float velX, float velY, ID id) {
-        super(x, y, height, width, velX, velY, id);
-    }
-
-    public MichaelJackson(float x, float y, float height, float width, ID id) {
-        super(x, y, height, width, id);
-    }
+public class MichaelJackson extends GameObject implements Bonus {
 
     public MichaelJackson(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        this.height=70;
-        this.width=30;
-        this.velX=5;
-        this.velY=5;
+        this.height = 70;
+        this.width = 30;
+        this.velX = 5;
+        this.velY = 5;
     }
 
     @Override
     public void tick() {
-       tick(this);
+        tick(this);
     }
 
     @Override
@@ -40,7 +28,7 @@ public class MichaelJackson extends GameObject  implements Bonus {
         //render(g,this);
 //        g.setColor(Color.blue);
 //        g.fillRect((int)x,(int) y,(int) width,(int)height);
-        g.drawImage(Game.michael_jackson_image,(int)x,(int)y,30,70,null);
+        g.drawImage(Game.michael_jackson_image, (int) x, (int) y, 30, 70, null);
     }
 
     @Override
@@ -50,7 +38,7 @@ public class MichaelJackson extends GameObject  implements Bonus {
 
     @Override
     public BonusType getBonusType() {
-       return BonusType.MICHAEL_JACKSON;
+        return BonusType.MICHAEL_JACKSON;
     }
 
     @Override

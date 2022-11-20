@@ -20,20 +20,18 @@ public class Handler {
         for (int i = 0; i < objects.size(); i++) {
             GameObject tempObject = objects.get(i);
 
-            tempObject.tick();
+            tempObject.tick();                   //invoking tick method in every object
         }
-       // objects.forEach(GameObject::tick);
-        bonusHandler.tick();
+        bonusHandler.tick();                 //invoking tick method in every collected bonus
     }
 
     public void render(Graphics g) {
-        //objects.forEach(o -> o.render(g));
         for (int i = 0; i < objects.size(); i++) {
             GameObject tempObject = objects.get(i);
 
-            tempObject.render(g);
+            tempObject.render(g);     //invoking render method in every object
         }
-        bonusHandler.render(g);
+        bonusHandler.render(g);         //invoking render method in every collected bonus
     }
 
     public void addObject(GameObject object) {

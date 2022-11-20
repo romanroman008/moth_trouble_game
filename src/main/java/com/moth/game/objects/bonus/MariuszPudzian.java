@@ -10,7 +10,6 @@ import java.awt.*;
 
 public class MariuszPudzian extends GameObject implements Bonus {
 
-    float life;
 
     public MariuszPudzian(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
@@ -61,7 +60,4 @@ public class MariuszPudzian extends GameObject implements Bonus {
         getHandler().getPlayer().setBonusSpeedMultiplier(0);
     }
 
-    public void resetBonusTime(){
-        this.life=2f;
-    }
 }

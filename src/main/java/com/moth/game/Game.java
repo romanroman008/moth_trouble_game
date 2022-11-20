@@ -10,7 +10,6 @@ import com.moth.game.objects.MenuParticle;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 
 public class Game extends Canvas implements Runnable {
@@ -25,20 +24,20 @@ public class Game extends Canvas implements Runnable {
     private HUD hud;
     private Spawn spawn;
     private Menu menu;
+
+
     public static boolean end;
+    public boolean pause;
 
 
-
-    private Random r;
-
-    public enum STATE{
+    public enum STATE {
         MENU,
         GAME,
         HELP,
         END
     }
 
-    public STATE gameState=STATE.MENU;
+    public STATE gameState = STATE.MENU;
 
     public static BufferedImage moth_image;
     public static BufferedImage pudzian_image;
@@ -52,45 +51,42 @@ public class Game extends Canvas implements Runnable {
     public static BufferedImage background_image;
     public static BufferedImage papiez_image;
     public static BufferedImage kremowka_image;
-    public static BufferedImage zyrandol_image;
+    public static BufferedImage illuminati_image;
+    public static BufferedImage jaszczur_image;
 
     public Game() {
         handler = new Handler(this);
-        hud=new HUD();
-        spawn=new Spawn(handler,hud);
-        this.addKeyListener(new KeyInput(handler,this));
-        menu=new Menu(this,handler,hud);
+        hud = new HUD();
+        spawn = new Spawn(handler, hud);
+        this.addKeyListener(new KeyInput(handler, this));
+        menu = new Menu(this, handler, hud);
         this.addMouseListener(menu);
+        pause = false;
 
-        //if(gameState==STATE.GAME)
-
-        window = new Window(WIDTH/2, HEIGHT/2, "Moth in trouble", this);
-        //window.changeSize(WIDTH,HEIGHT);
-
-
-        BufferedImageLoader loader= new BufferedImageLoader();
-        moth_image=loader.loadImage("/images/moth.png");
-        pudzian_image=loader.loadImage("/images/pudzian.png");
-        najman_image=loader.loadImage("/images/najman.png");
-        michael_jackson_image=loader.loadImage("/images/mj.png");
-        lamp_image=loader.loadImage("/images/lamp.png");
-        bulb_image=loader.loadImage("/images/bulb.png");
-        bat_image=loader.loadImage("/images/bat.png");
-        pizza_image=loader.loadImage("/images/pizza.png");
-        paper_image=loader.loadImage("/images/paper.png");
-        background_image=loader.loadImage("/images/background.png");
-        papiez_image=loader.loadImage("/images/papiez.png");
-        kremowka_image=loader.loadImage("/images/kremowka.png");
-        zyrandol_image=loader.loadImage("/images/bulb2.png");
+        window = new Window(WIDTH / 2, HEIGHT / 2, "Moth in trouble", this);
+       // window.changeSize(WIDTH, HEIGHT);
 
 
-//        MenuParticle menuParticle=new MenuParticle(100,100, ID.MenuParticle,handler);
-//        menuParticle.thisIsTheEnd=true;
-//        handler.addObject(menuParticle);
+        BufferedImageLoader loader = new BufferedImageLoader();
+        moth_image = loader.loadImage("/images/moth.png");
+        pudzian_image = loader.loadImage("/images/pudzian.png");
+        najman_image = loader.loadImage("/images/najman.png");
+        michael_jackson_image = loader.loadImage("/images/mj.png");
+        lamp_image = loader.loadImage("/images/lamp.png");
+        bulb_image = loader.loadImage("/images/bulb.png");
+        bat_image = loader.loadImage("/images/bat.png");
+        pizza_image = loader.loadImage("/images/pizza.png");
+        paper_image = loader.loadImage("/images/paper.png");
+        background_image = loader.loadImage("/images/background.png");
+        papiez_image = loader.loadImage("/images/papiez.png");
+        kremowka_image = loader.loadImage("/images/kremowka.png");
+        illuminati_image = loader.loadImage("/images/illuminati.png");
+        jaszczur_image = loader.loadImage("/images/jaszczur.png");
 
-        handler.addObject(new MenuParticle(100,100,ID.MenuParticle,handler));
 
 
+
+        handler.addObject(new MenuParticle(100, 100, ID.MenuParticle, handler));
 
 
     }
@@ -140,44 +136,40 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
 
-        if(gameState==STATE.GAME){
-            handler.clearMenuParticles();
-            spawn.tick();
-            handler.tick();
-            hud.tick();
-            if(end){
-                finish();
+        if (gameState == STATE.GAME) {
+            if (!pause) {
+                handler.clearMenuParticles();
+                spawn.tick();
+                handler.tick();
+                hud.tick();
+                if (end) {
+                    finish();
+                }
             }
+
+
+        } else if (gameState == STATE.MENU || gameState == STATE.END || gameState == STATE.HELP) {
+            handler.tick();
         }
 
-    else if(gameState==STATE.MENU||gameState==STATE.END||gameState==STATE.HELP){
-        //menu.tick();
-
-        handler.tick();
-    }
-
 
     }
 
-//
-//    public static void endGame(){
-//        gameState=STATE.END;
-//    }
-    public void reset(){
-        hud.resetScore();
+
+    public void reset() {
+        spawn.resetScore();
         handler.removeAll();
-
-        handler.addObject(new MenuParticle(100,100,ID.MenuParticle,handler));
+        handler.addObject(new MenuParticle(100, 100, ID.MenuParticle, handler));
     }
 
-    public void finish(){
+    public void finish() {
         handler.getBonusHandler().removeBonuses();
-        window.changeSize(Game.WIDTH/2,Game.HEIGHT/2);
-        gameState=STATE.END;
-        end=false;
+        window.changeSize(Game.WIDTH / 2, Game.HEIGHT / 2);
+        gameState = STATE.END;
+        end = false;
         handler.removeAll();
-        MenuParticle menuParticle=new MenuParticle(100,100, ID.MenuParticle,handler);
-        menuParticle.thisIsTheEnd=true;
+        MenuParticle menuParticle = new MenuParticle(100, 100, ID.MenuParticle, handler);
+        menuParticle.thisIsTheEnd = true;
         handler.addObject(menuParticle);
     }
 
@@ -187,16 +179,25 @@ public class Game extends Canvas implements Runnable {
             this.createBufferStrategy(3);
             return;
         }
-        Graphics g=bs.getDrawGraphics();
+        Graphics g = bs.getDrawGraphics();
 
-        if(gameState==STATE.GAME){
+        if (gameState == STATE.GAME) {
 
-            g.drawImage(background_image,0,0,Game.WIDTH,Game.HEIGHT,null);
+
+            g.drawImage(background_image, 0, 0, Game.WIDTH, Game.HEIGHT, null);
+            Graphics2D g2d=(Graphics2D)g;
+            //g2d.drawImage(Game.illuminati_image, 254, 200, Game.WIDTH-560, Game.HEIGHT-400, null);
             drawBackground(g);
             handler.render(g);
             hud.render(g);
-        }
-        else if(gameState==STATE.MENU||gameState==STATE.HELP||gameState==STATE.END){
+
+            if (pause) {
+                g.setColor(Color.white);
+                g.setFont(HUD.mediumFont);
+                g.drawString("Pauza", WIDTH / 2 - 30, HEIGHT / 2);
+            }
+
+        } else if (gameState == STATE.MENU || gameState == STATE.HELP || gameState == STATE.END) {
             menu.render(g);
             handler.render(g);
         }
@@ -206,36 +207,35 @@ public class Game extends Canvas implements Runnable {
     }
 
 
-
-    public static float clamp(float var,float min,float max){
-        if(var>max)
+    public static float clamp(float var, float min, float max) {        //preventing values from going beyond the limits (sky IS the limit XD)
+        if (var > max)
             return max;
-        if(var<min)
+        if (var < min)
             return min;
         return var;
     }
 
 
-    public static void drawBackground(Graphics g){
+    public static void drawBackground(Graphics g) {
         g.setColor(Color.DARK_GRAY);
 
 
-        int x[]={0,0,Game.WIDTH/2};
-        int y[]={0,240,0};
-        g.setColor(new Color(0,0,0,127));
-        Polygon p1=new Polygon(x,y,3);   //left corner
+        int x[] = {0, 0, Game.WIDTH / 2};
+        int y[] = {0, 240, 0};
+        g.setColor(new Color(0, 0, 0, 127));
+        Polygon p1 = new Polygon(x, y, 3);   //left corner
         g.drawPolygon(p1);
         g.fillPolygon(p1);
 
-        int x2[]={Game.WIDTH/2,Game.WIDTH,Game.WIDTH};
-        int y2[]={0,0,240};
-        Polygon p2=new Polygon(x2,y2,3);   //right corner
+        int x2[] = {Game.WIDTH / 2, Game.WIDTH, Game.WIDTH};
+        int y2[] = {0, 0, 240};
+        Polygon p2 = new Polygon(x2, y2, 3);   //right corner
         g.drawPolygon(p2);
         g.fillPolygon(p2);
 
-       // g.drawImage(zyrandol_image,Game.WIDTH/2-150,0,70,120,null);
-        g.drawImage(lamp_image,Game.WIDTH/2-150,-128,300,200,null);
-        g.drawImage(bulb_image,Game.WIDTH/2-40,44,80,100,null);
+
+        g.drawImage(lamp_image, Game.WIDTH / 2 - 150, -128, 300, 200, null);
+        g.drawImage(bulb_image, Game.WIDTH / 2 - 40, 44, 80, 100, null);
 
 
     }

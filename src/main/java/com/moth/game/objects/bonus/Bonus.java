@@ -12,12 +12,12 @@ public interface Bonus {
 
     default void tick(GameObject gameObject){
 
-        gameObject.setVelY((float) Math.sin(gameObject.getX()/70)*3);
+        gameObject.setVelY((float) Math.sin(gameObject.getX()/70)*3);  //setting trajectory of bonus as sinusoid
 
 
         if(collision(gameObject)){
-            gameObject.getHandler().getBonusHandler().addBonus((Bonus)gameObject);
-            gameObject.getHandler().removeObject(gameObject);
+            gameObject.getHandler().getBonusHandler().addBonus((Bonus)gameObject);   //passing Bonus to BonusHandler
+            gameObject.getHandler().removeObject(gameObject);                        // and removing it from game scene
         }
 
         gameObject.setX(gameObject.getX()+gameObject.getVelX());
@@ -35,7 +35,7 @@ public interface Bonus {
         g.fillRect((int)o.getX(),(int) o.getY(),(int) o.getWidth(),(int)o.getHeight());
     }
 
-    default boolean collision(GameObject gameObject){
+    default boolean collision(GameObject gameObject){                              //checking if player hit the bonus
         for (GameObject object : gameObject.getHandler().getObjects()) {
             if(object.getId()== ID.Player){
                 if(getBounds(gameObject).intersects(object.getBounds())) {

@@ -10,14 +10,13 @@ import java.awt.*;
 
 public class Papiez extends GameObject implements Bonus {
 
-    float life;
 
     public Papiez(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        this.height=50;
-        this.width=50;
-        this.velX=5;
-        this.velY=5;
+        this.height = 50;
+        this.width = 50;
+        this.velX = 5;
+        this.velY = 5;
     }
 
     @Override
@@ -27,12 +26,12 @@ public class Papiez extends GameObject implements Bonus {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Game.kremowka_image,(int)x,(int)y,(int)width,(int)height,null);
+        g.drawImage(Game.kremowka_image, (int) x, (int) y, (int) width, (int) height, null);
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle((int)x,(int)y,(int)width,(int)width);
+        return new Rectangle((int) x, (int) y, (int) width, (int) width);
     }
 
     @Override

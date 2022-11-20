@@ -1,6 +1,7 @@
 package com.moth.game.handlers;
 
 import com.moth.game.Game;
+import com.moth.game.HUD;
 import com.moth.game.enums.BonusType;
 import com.moth.game.objects.GameObject;
 import com.moth.game.objects.Player;
@@ -13,67 +14,73 @@ import java.util.HashMap;
 
 public class BonusHandler {
     Game game;
-    int counter=0;
-    int trueCounter;
+    int counter = 0;
+    // int trueCounter;
     Handler handler;
     GameObject player;
-    HashMap<Bonus,Integer> bonuses = new HashMap<>();
+    HashMap<Bonus, Integer> bonuses = new HashMap<>();
     float transparency;
+
 
     public BonusHandler(Game game, Handler handler) {
         this.game = game;
         this.handler = handler;
         transparency = 0.00001f;
-        //player=handler.getPlayer();
+
     }
 
-    public void tick(){
-        if(!bonuses.entrySet().isEmpty()){
-            bonusCountdown();
+    public void tick() {
+        if (!bonuses.entrySet().isEmpty()) {
+            bonusCountdown();            //starting bonus timer
         }
 
     }
-    public void render(Graphics g){
-//        Font font = new Font("arial", 1, 20);
-//        g.setColor(Color.orange);
-//        g.setFont(font);
-//        g.drawString("Weź sie rozpędź i jebnij łbem o ścianę",15,30);
 
-        if(!bonuses.entrySet().isEmpty()){
-            Font font = new Font("arial", 1, 20);
-            bonuses.forEach((k,v)->{
-                switch(k.getBonusType()){
+    public void render(Graphics g) {
+        if (!bonuses.entrySet().isEmpty()) {
+            player = handler.getPlayer();
+            bonuses.forEach((k, v) -> {
+                switch (k.getBonusType()) {                   //setting visual bonus effects
                     case NAJMAN -> {
                         g.setColor(Color.BLUE);
-                        g.setFont(font);
-                        g.drawString("Weź sie rozpędź i jebnij łbem o ścianę",15,30);
+                        g.setFont(HUD.smallFont);
+                        g.drawString("Weź sie rozpędź i jebnij łbem o ścianę", (int) player.getX(), (int) player.getY() - 20);
                     }
                     case PUDZIAN -> {
                         g.setColor(Color.pink);
-                        g.setFont(font);
-                        g.drawString("POLSKA GUROM!1!1!",15,30);
+                        g.setFont(HUD.smallFont);
+                        g.drawString("POLSKA GUROM!1!1!", (int) player.getX(), (int) player.getY() - 20);
                     }
                     case MICHAEL_JACKSON -> {
                         g.setColor(Color.WHITE);
-                        g.setFont(font);
-                        g.drawString("Moonwalk",15,30);
+                        g.setFont(HUD.smallFont);
+                        g.drawString("Moonwalk", (int) player.getX(), (int) player.getY() - 20);
 
                     }
                     case PIZZA -> {
                         g.setColor(Color.ORANGE);
-                        g.setFont(font);
-                        g.drawString("Mamma mia, too much pizzerinia",15,30);
+                        g.setFont(HUD.smallFont);
+                        g.drawString("Mamma mia, molto grande pizzerinia", (int) player.getX(), (int) player.getY() - 20);
 
                     }
                     case PAPAJ -> {
-                        Graphics2D g2d=(Graphics2D)g;
+                        Graphics2D g2d = (Graphics2D) g;
                         g2d.setComposite(makeTransparent(transparency));
-                        if(v>3)
-                        transparency+=0.00001f;
-                        else
-                            if(transparency>0.00003f)
-                            transparency-=0.00003f;
-                        g2d.drawImage(Game.papiez_image,0,0, Game.WIDTH,Game.HEIGHT,null);
+                        if (v > 3)
+                            transparency += 0.00001f;
+                        else if (transparency > 0.00003f)
+                            transparency -= 0.00003f;
+                        g2d.drawImage(Game.papiez_image, 0, 0, Game.WIDTH, Game.HEIGHT, null);
+                        g2d.setComposite(makeTransparent(1));
+                    }
+                    case ILLUMINATI -> {
+                        Graphics2D g2d = (Graphics2D) g;
+                        g2d.setComposite(makeTransparent(transparency));
+                        if (v > 3)
+                            transparency += 0.00001f;
+                        else if (transparency > 0.00003f)
+                            transparency -= 0.00003f;
+                        g2d.drawImage(Game.illuminati_image, 254, 200, Game.WIDTH-560, Game.HEIGHT-400, null);
                         g2d.setComposite(makeTransparent(1));
                     }
                 }
@@ -87,56 +94,37 @@ public class BonusHandler {
         return (AlphaComposite.getInstance(type, alpha));
     }
 
-//    private void centerString(Graphics g, Rectangle r, String s, Font font) {
-//        FontRenderContext frc =
-//                new FontRenderContext(null, true, true);
-//
-//        Rectangle2D r2D = font.getStringBounds(s, frc);
-//        int rWidth = (int) Math.round(r2D.getWidth());
-//        int rHeight = (int) Math.round(r2D.getHeight());
-//        int rX = (int) Math.round(r2D.getX());
-//        int rY = (int) Math.round(r2D.getY());
-//
-//        int a = (r.width / 2) - (rWidth / 2) - rX;
-//        int b = (r.height / 2) - (rHeight / 2) - rY;
-//
-//        g.setFont(font);
-//        g.drawString(s, r.x + a, r.y + b);
-//    }
-
-    public void addBonus(Bonus bonus){
-        this.bonuses.put(bonus,10);
+    public void addBonus(Bonus bonus) {         //adding bonus with its timer to map
+        this.bonuses.put(bonus, 10);
         bonusAction(bonus);
     }
-    private void bonusAction(Bonus bonus){
+
+    private void bonusAction(Bonus bonus) {     //bonus start
         bonus.bonusPower();
     }
 
-    private void bonusCountdown(){
+    private void bonusCountdown() {
         counter++;
-        if(counter>=30){
-            counter=0;
-            bonuses.forEach((k,v)->this.trueCounter=v);
-            bonuses.forEach((k,v)->bonuses.put(k,v-1));
-            //bonuses.forEach((x,y)->System.out.println(y));
-            bonuses.forEach((k,v)->{
-                if(v==0){
-                    k.bonusDepower();
-                    transparency=0.0000001f;
+        if (counter >= 30) {
+            counter = 0;
+            // bonuses.forEach((k, v) -> this.trueCounter = v);
+            bonuses.forEach((k, v) -> bonuses.put(k, v - 1));      //decrementing bonus timer every thirty ticks
+            bonuses.forEach((k, v) -> {
+                if (v == 0) {
+                    k.bonusDepower();                          //bonus end when timer is 0
+                    transparency = 0.0000001f;
                 }
 
             });
-            bonuses.entrySet().removeIf(b->b.getValue()==0);
+            bonuses.entrySet().removeIf(b -> b.getValue() == 0);       //removing bonus from map if timer is 0
 
         }
     }
 
-    public void removeBonuses(){
+    public void removeBonuses() {
         //bonuses.clear();
         bonuses.values().clear();
     }
-
-
 
 
 }

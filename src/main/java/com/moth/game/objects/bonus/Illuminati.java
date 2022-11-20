@@ -8,14 +8,13 @@ import com.moth.game.objects.GameObject;
 
 import java.awt.*;
 
-public class Pizza extends GameObject implements Bonus {
-
-    public Pizza(float x, float y, ID id, Handler handler) {
+public class Illuminati extends GameObject implements Bonus {
+    public Illuminati(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
-        this.height = 50;
-        this.width = 50;
-        this.velX = 5;
-        this.velY = 5;
+        this.height=60;
+        this.width=100;
+        this.velX=5;
+        this.velY=5;
     }
 
     @Override
@@ -25,26 +24,26 @@ public class Pizza extends GameObject implements Bonus {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Game.pizza_image, (int) x, (int) y, (int) width, (int) height, null);
+        g.drawImage(Game.jaszczur_image,(int)x,(int)y,(int)width,(int)height,null);
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle((int) x, (int) y, (int) width, (int) width);
+        return getBounds(this);
     }
 
     @Override
     public BonusType getBonusType() {
-        return BonusType.PIZZA;
+        return BonusType.ILLUMINATI;
     }
 
     @Override
     public void bonusPower() {
-        getHandler().getPlayer().setBonusSpeedMultiplier(0.5f);
+
     }
 
     @Override
     public void bonusDepower() {
-        getHandler().getPlayer().setBonusSpeedMultiplier(1);
+
     }
 }

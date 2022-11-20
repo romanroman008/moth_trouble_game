@@ -21,39 +21,38 @@ public class Spawn {
     private List<GameObject> bonusList;
     private Random r;
     private boolean darkKnight=false;
+    private int scoreKeep;
 
-    private int scoreKeep=0;
 
     public Spawn(Handler handler,HUD hud){
         this.handler=handler;
         this.bonusHandler=this.handler.getBonusHandler();
         this.hud=hud;
         r=new Random();
-        bonusList=new ArrayList<>();
 
+        scoreKeep=0;
+
+        bonusList=new ArrayList<>();                                                                     //creating list for the bonus draw
         bonusList.add(new MariuszPudzian(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new NajmanMarcin(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new MichaelJackson(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new Pizza(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new Papiez(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new Illuminati(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
     }
 
     public void tick(){
         if(handler.getObjects().stream().noneMatch(o->o.getId()==ID.Bat)){
             scoreKeep++;
             if(r.nextInt(10)==0){
-                handler.addObject(new BulbMissile(Game.WIDTH/2,50,ID.Enemy,5,handler));
+                handler.addObject(new BulbMissile(Game.WIDTH/2,50,ID.Enemy,5,handler));        //shooting light missile in random directions
             }
         }
 
-        if(handler.getObjects().stream().anyMatch(o->o.getId()==ID.Bat)) {
-//        else{
-//            if(handler.getObjects().stream().anyMatch(o->o.getId()==ID.Bat))
-//            darkKnight=false;
-            darkKnight = true;
+//        if(handler.getObjects().stream().anyMatch(o->o.getId()==ID.Bat)) {
+//            darkKnight = true;               //setting boolean that the bat is on the map
+//
 //        }
-
-        }
 
 
 
@@ -62,33 +61,34 @@ public class Spawn {
         if(hud.getScore()==1){
             handler.addObject(new Bulb(Game.WIDTH/2-35,0, ID.Bulb,handler));
             handler.addObject(new Player(Game.WIDTH/2-32,Game.HEIGHT-100, ID.Player,handler));
-          //  handler.addObject(new Bat(-300,-300,4,handler,ID.Bat));
-                      //  handler.addObject(new Bat(-300,-300,ID.Enemy));
+            //handler.addObject(bonusList.get(0));
 
-//            handler.addObject(new MariuszPudzian(Game.WIDTH/2-32,Game.HEIGHT/2-100, ID.Bonus,handler));
-//            handler.addObject(new NajmanMarcin(Game.WIDTH-100,Game.HEIGHT/2-100, ID.Bonus,handler));
-//            handler.addObject(new MichaelJackson(Game.WIDTH-200,Game.HEIGHT/2-100, ID.Bonus,handler));
         }
 
         if(scoreKeep%500==0&&scoreKeep!=0){
             //scoreKeep=0;
            // batTimer++;
+            Collections.shuffle(bonusList);           //bonus list shuffle
             Collections.shuffle(bonusList);
           //  handler.removeObject(bonusList.get(0));
-            bonusList.get(0).setX(-100);
+            bonusList.get(0).setX(-100);                     //resetting bonus position
             bonusList.get(0).setY(Game.HEIGHT/2-100);
-            handler.addObject(bonusList.get(0));
+            handler.addObject(bonusList.get(0));          //getting random bonus
         }
 
-       // if(hud.getScore()==100)
         if(scoreKeep==2000)
         {
             scoreKeep=0;
-            handler.removeBonusesAndEnemies();
+            handler.removeBonusesAndEnemies();                                            //clearing the map and summoning the bat
             handler.addObject(new Bat(-300,-300,4,handler,ID.Bat));
             handler.getBonusHandler().removeBonuses();
-            darkKnight=true;
+            darkKnight=true;       //setting boolean that the bat is on the map
         }
+    }
+
+    public void resetScore(){
+        this.hud.resetScore();
+        this.scoreKeep=0;
     }
 
 

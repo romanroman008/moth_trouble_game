@@ -83,7 +83,7 @@ public class Bat extends GameObject {
 
     }
 
-    private boolean throwACoin() {
+    private boolean toss() {
         if (r.nextInt(2) == 1)
             return true;
         return false;
@@ -96,60 +96,60 @@ public class Bat extends GameObject {
             case 0 -> {
                 x = 1;                              //left upper corner
                 y = 1;
-                if (throwACoin()) {
+                if (toss()) {
                     destX = 1300;
                     destY = r.nextInt(500, 1000);
-                } else {
+                } else {                                               //drawing point in right bottom corner
                     destX = r.nextInt(650, 1300);
                     destY = 1000;
                 }
 
                 tg = abs(destY) / abs(destX);
-                angle = Math.toRadians(90) + atan(tg);
+                angle = Math.toRadians(90) + atan(tg);             //calculating bat rotation
 
             }
             case 1 -> {
                 x = 1280;                       //right bottom corner
                 y = 960;
 
-                if (throwACoin()) {
+                if (toss()) {
                     destX = -10;
                     destY = r.nextInt(1, 500);
-                } else {
+                } else {                                               //drawing point in left upper corner
                     destX = r.nextInt(1, 650);
                     destY = -10;
                 }
                 tg = abs(x) / abs(Game.HEIGHT - destY);
-                angle = -atan(tg);
+                angle = -atan(tg);                                    //calculating bat rotation
             }
             case 2 -> {
-                x = 1;                             //left bottom corner
+                x = 1;                     //left bottom corner
                 y = 960;
 
-                if (throwACoin()) {
+                if (toss()) {
                     destX = 1300;
                     destY = r.nextInt(1, 500);
-                } else {
+                } else {                                               //drawing point in right upper corner
                     destX = r.nextInt(650, 1300);
                     destY = -10;
                 }
 
                 tg = abs(destX) / abs(Game.HEIGHT - destY);
-                angle = atan(tg);
+                angle = atan(tg);                                     //calculating bat rotation
             }
             case 3 -> {
-                x = 1280;                                           //right upper corner
+                x = 1280;                   //right upper corner
                 y = -20;
 
-                if (throwACoin()) {
+                if (toss()) {
                     destX = -10;
                     destY = r.nextInt(500, 1000);
-                } else {
+                } else {                                             //drawing point in left bottom corner
                     destX = r.nextInt(1, 650);
                     destY = 1000;
                 }
                 tg = abs(destY) / abs(Game.WIDTH - destX);
-                angle = -Math.toRadians(90) - atan(tg);
+                angle = -Math.toRadians(90) - atan(tg);                   //calculating bat rotation
             }
 
         }
@@ -169,7 +169,7 @@ public class Bat extends GameObject {
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform old = g2d.getTransform();
 
-        g2d.rotate(angle, (int) x+175, (int) y+100);
+        g2d.rotate(angle, (int) x+175, (int) y+100);          //rotating bat
         g2d.drawImage(Game.bat_image, (int) x, (int) y, 350, 200, null);
         g2d.setTransform(old);
 

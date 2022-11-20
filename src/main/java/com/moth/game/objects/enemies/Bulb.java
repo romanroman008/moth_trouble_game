@@ -20,23 +20,16 @@ public class Bulb extends GameObject {
 
     @Override
     public void tick() {
-//        if(r.nextInt(10)==0){
-//            handler.addObject(new BulbMissile(x+35,y,ID.Enemy,5,handler));
-//        }
+
     }
 
     @Override
     public void render(Graphics g) {
-//        g.setColor(Color.yellow);
-//        g.fillOval((int) x, (int) y, 70, 100);
-       //g.drawImage(Game.lamp_image,(int)x,(int)y,70,100,null);
-        //g.drawImage(Game.lamp_image,(int)x,(int)y,null);
         g.drawImage(Game.bulb_image,Game.WIDTH/2-40,44,80,100,null);
     }
 
     @Override
     public Rectangle getBounds() {
-      //  return new Rectangle((int) x, (int) y+25, 50, 50);
         return new Rectangle(Game.WIDTH/2-40,44,80,100);
     }
 }
