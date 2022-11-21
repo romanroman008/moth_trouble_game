@@ -61,7 +61,7 @@ public class Bat extends GameObject {
 
     @Override
     public void tick() {
-        if (x <= -200 || x >= 1480 || y <= -200 || y >= 1200) {
+        if (x <= -300 || x >= 1480 || y <= -300 || y >= 1200) {
 
             if (corner <= 3 && passageAmount > 0) {
                 coordinatesRandomizer();
@@ -94,8 +94,8 @@ public class Bat extends GameObject {
     private void coordinatesRandomizer() {
         switch (corner) {
             case 0 -> {
-                x = 1;                              //left upper corner
-                y = 1;
+                x = -250;                              //left upper corner
+                y = -250;
                 if (toss()) {
                     destX = 1300;
                     destY = r.nextInt(500, 1000);

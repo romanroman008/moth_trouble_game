@@ -1,8 +1,6 @@
 package com.moth.game;
 
-import com.moth.game.enums.ID;
 import com.moth.game.handlers.Handler;
-import com.moth.game.objects.MenuParticle;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;

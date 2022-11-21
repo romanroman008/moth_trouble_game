@@ -20,8 +20,8 @@ public class Spawn {
     private HUD hud;
     private List<GameObject> bonusList;
     private Random r;
-    private boolean darkKnight=false;
     private int scoreKeep;
+    private int bonusToGetIndex;
 
 
     public Spawn(Handler handler,HUD hud){
@@ -37,7 +37,6 @@ public class Spawn {
         bonusList.add(new NajmanMarcin(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new MichaelJackson(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new Pizza(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
-        bonusList.add(new Papiez(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new Illuminati(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
     }
 
@@ -49,31 +48,23 @@ public class Spawn {
             }
         }
 
-//        if(handler.getObjects().stream().anyMatch(o->o.getId()==ID.Bat)) {
-//            darkKnight = true;               //setting boolean that the bat is on the map
-//
-//        }
 
 
 
 
 
         if(hud.getScore()==1){
-            handler.addObject(new Bulb(Game.WIDTH/2-35,0, ID.Bulb,handler));
+            handler.addObject(new Bulb(Game.WIDTH/2-35,0, ID.Bulb,handler));                      //adding bulb and player
             handler.addObject(new Player(Game.WIDTH/2-32,Game.HEIGHT-100, ID.Player,handler));
-            //handler.addObject(bonusList.get(0));
 
         }
 
         if(scoreKeep%500==0&&scoreKeep!=0){
-            //scoreKeep=0;
-           // batTimer++;
-            Collections.shuffle(bonusList);           //bonus list shuffle
-            Collections.shuffle(bonusList);
-          //  handler.removeObject(bonusList.get(0));
-            bonusList.get(0).setX(-100);                     //resetting bonus position
-            bonusList.get(0).setY(Game.HEIGHT/2-100);
-            handler.addObject(bonusList.get(0));          //getting random bonus
+
+            bonusToGetIndex= r.nextInt(5);        //drawing bonus
+            bonusList.get(bonusToGetIndex).setX(-100);                     //resetting bonus position
+            bonusList.get(bonusToGetIndex).setY(Game.HEIGHT/2-100);
+            handler.addObject(bonusList.get(bonusToGetIndex));          //getting random bonus
         }
 
         if(scoreKeep==2000)
@@ -82,7 +73,6 @@ public class Spawn {
             handler.removeBonusesAndEnemies();                                            //clearing the map and summoning the bat
             handler.addObject(new Bat(-300,-300,4,handler,ID.Bat));
             handler.getBonusHandler().removeBonuses();
-            darkKnight=true;       //setting boolean that the bat is on the map
         }
     }
 

@@ -5,7 +5,7 @@ import com.moth.game.graphics.BufferedImageLoader;
 import com.moth.game.handlers.Handler;
 import com.moth.game.handlers.Spawn;
 import com.moth.game.inputs.KeyInput;
-import com.moth.game.objects.MenuParticle;
+import com.moth.game.objects.MenuMoth;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -49,8 +49,6 @@ public class Game extends Canvas implements Runnable {
     public static BufferedImage pizza_image;
     public static BufferedImage paper_image;
     public static BufferedImage background_image;
-    public static BufferedImage papiez_image;
-    public static BufferedImage kremowka_image;
     public static BufferedImage illuminati_image;
     public static BufferedImage jaszczur_image;
 
@@ -78,15 +76,13 @@ public class Game extends Canvas implements Runnable {
         pizza_image = loader.loadImage("/images/pizza.png");
         paper_image = loader.loadImage("/images/paper.png");
         background_image = loader.loadImage("/images/background.png");
-        papiez_image = loader.loadImage("/images/papiez.png");
-        kremowka_image = loader.loadImage("/images/kremowka.png");
         illuminati_image = loader.loadImage("/images/illuminati.png");
         jaszczur_image = loader.loadImage("/images/jaszczur.png");
 
 
 
 
-        handler.addObject(new MenuParticle(100, 100, ID.MenuParticle, handler));
+        handler.addObject(new MenuMoth(100, 100, ID.MenuParticle, handler));
 
 
     }
@@ -159,7 +155,7 @@ public class Game extends Canvas implements Runnable {
     public void reset() {
         spawn.resetScore();
         handler.removeAll();
-        handler.addObject(new MenuParticle(100, 100, ID.MenuParticle, handler));
+        handler.addObject(new MenuMoth(100, 100, ID.MenuParticle, handler));
     }
 
     public void finish() {
@@ -168,7 +164,7 @@ public class Game extends Canvas implements Runnable {
         gameState = STATE.END;
         end = false;
         handler.removeAll();
-        MenuParticle menuParticle = new MenuParticle(100, 100, ID.MenuParticle, handler);
+        MenuMoth menuParticle = new MenuMoth(100, 100, ID.MenuParticle, handler);
         menuParticle.thisIsTheEnd = true;
         handler.addObject(menuParticle);
     }
@@ -185,8 +181,6 @@ public class Game extends Canvas implements Runnable {
 
 
             g.drawImage(background_image, 0, 0, Game.WIDTH, Game.HEIGHT, null);
-            Graphics2D g2d=(Graphics2D)g;
-            //g2d.drawImage(Game.illuminati_image, 254, 200, Game.WIDTH-560, Game.HEIGHT-400, null);
             drawBackground(g);
             handler.render(g);
             hud.render(g);

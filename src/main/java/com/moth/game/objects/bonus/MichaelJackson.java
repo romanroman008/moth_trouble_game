@@ -25,9 +25,6 @@ public class MichaelJackson extends GameObject implements Bonus {
 
     @Override
     public void render(Graphics g) {
-        //render(g,this);
-//        g.setColor(Color.blue);
-//        g.fillRect((int)x,(int) y,(int) width,(int)height);
         g.drawImage(Game.michael_jackson_image, (int) x, (int) y, 30, 70, null);
     }
 
