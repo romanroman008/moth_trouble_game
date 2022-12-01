@@ -3,6 +3,8 @@ package com.moth.game.handlers;
 import com.moth.game.Game;
 import com.moth.game.HUD;
 import com.moth.game.enums.ID;
+import com.moth.game.handlers.BonusHandler;
+import com.moth.game.handlers.Handler;
 import com.moth.game.objects.GameObject;
 import com.moth.game.objects.Player;
 import com.moth.game.objects.bonus.*;
@@ -43,13 +45,16 @@ public class Spawn {
         bonusList.add(new Papiez(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
         bonusList.add(new Illuminati(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
 
+=======
+        bonusList.add(new Illuminati(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+>>>>>>> parent of 40c8c66 (screen revolution)
     }
 
     public void tick(){
         if(handler.getObjects().stream().noneMatch(o->o.getId()==ID.Bat)){
             scoreKeep++;
             if(r.nextInt(10)==0){
-                handler.addObject(new BulbMissile(Game.GAME_WIDTH /2,50,ID.Enemy,5,handler));        //shooting light missile in random directions
+                handler.addObject(new BulbMissile(Game.WIDTH/2,50,ID.Enemy,5,handler));        //shooting light missile in random directions
             }
         }
 
@@ -63,16 +68,18 @@ public class Spawn {
 
 
         if(hud.getScore()==1){
+
             handler.addObject(new Bulb(Game.GAME_WIDTH /2-35,0, ID.Bulb,handler));                      //adding bulb and player
             handler.addObject(new Player(Game.GAME_WIDTH /2-32,Game.GAME_HEIGHT -100, ID.Player,handler));
             //handler.addObject(bonusList.get(0));
+
         }
 
         if(scoreKeep%500==0&&scoreKeep!=0){
 
             bonusToGetIndex = r.nextInt(5);        //drawing bonus
             bonusList.get(bonusToGetIndex).setX(-100);                     //resetting bonus position
-            bonusList.get(bonusToGetIndex).setY(Game.GAME_HEIGHT /2-100);
+            bonusList.get(bonusToGetIndex).setY(Game.HEIGHT/2-100);
             handler.addObject(bonusList.get(bonusToGetIndex));          //getting random bonus
 
 
