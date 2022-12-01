@@ -55,36 +55,9 @@ public class Menu extends MouseAdapter  {
         }
     }
 
-//    public void mouseReleased(MouseEvent e) {
-//        int mx = e.getX();
-//        int my = e.getY();
-//
-//        if (game.gameState == Game.STATE.MENU) {
-//            //play
-//            if (mouseOver(mx, my, 220, 120, 200, 60)) {
-//                game.gameState = Game.STATE.GAME;
-//                game.window.changeSize(Game.WIDTH,Game.HEIGHT);
-//            }
-//        }
-//    }
-
-//    public void mouseMoved(MouseEvent e){
-//        int mx = e.getX();
-//        int my = e.getY();
-//        System.out.println(mx);
-//        System.out.println(my);
-//
-//        if (game.gameState == Game.STATE.MENU) {
-//            //play
-//            if (mouseOver(mx, my, 220, 120, 200, 60)) {
-//                game.gameState = Game.STATE.GAME;
-//                game.window.changeSize(Game.WIDTH,Game.HEIGHT);
-//            }
-//        }
-//    }
 
     public void render(Graphics g){
-       // Color color=new Color(51,25,0);
+
         Graphics2D g2d=(Graphics2D)g;
 
         if (game.gameState == Game.STATE.MENU) {
@@ -164,7 +137,7 @@ public class Menu extends MouseAdapter  {
 
 
     private void drawMenuBackground(Graphics g){
-        g.drawImage(Game.paper_image,0,0,Game.GAME_WIDTH /2,Game.GAME_HEIGHT /2,null);
+        g.drawImage(Game.paper_image,0,0,Game.MENU_WIDTH,Game.MENU_HEIGHT,null);
 
         Graphics2D g2d=(Graphics2D)g;
         AffineTransform old=g2d.getTransform();

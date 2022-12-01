@@ -56,6 +56,12 @@ public class Game extends Canvas implements Runnable {
     public static BufferedImage jaszczur_image;
 
     public Game() {
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        if(screenSize.height<HEIGHT){
+            GAME_HEIGHT =screenSize.height-100;
+            GAME_WIDTH = GAME_HEIGHT / 9 * 12;
+        }
+
         handler = new Handler(this);
         hud = new HUD();
         spawn = new Spawn(handler, hud);
@@ -64,11 +70,7 @@ public class Game extends Canvas implements Runnable {
         this.addMouseListener(menu);
         pause = false;
 
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        if(screenSize.height<HEIGHT){
-            GAME_HEIGHT =screenSize.height;
-            GAME_WIDTH = GAME_HEIGHT / 9 * 12;
-        }
+
 
 
         window = new Window(MENU_WIDTH, MENU_HEIGHT, "Moth in trouble", this);
