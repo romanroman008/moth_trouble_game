@@ -29,7 +29,7 @@ public class Menu extends MouseAdapter  {
             //play
             if (mouseOver(mx, my, 220, 120, 200, 60)) {
                 game.gameState = Game.STATE.GAME;
-                game.window.changeSize(Game.WIDTH,Game.HEIGHT);
+                game.window.changeSize(Game.GAME_WIDTH,Game.GAME_HEIGHT);
 
             }
 
@@ -149,7 +149,7 @@ public class Menu extends MouseAdapter  {
 
     }
     private void drawEndBackground(Graphics g){
-        g.drawImage(Game.paper_image,0,0,Game.WIDTH/2,Game.HEIGHT/2,null);
+        g.drawImage(Game.paper_image,0,0,Game.MENU_WIDTH,Game.MENU_HEIGHT,null);
 
         Graphics2D g2d=(Graphics2D)g;
         AffineTransform old=g2d.getTransform();
@@ -164,7 +164,7 @@ public class Menu extends MouseAdapter  {
 
 
     private void drawMenuBackground(Graphics g){
-        g.drawImage(Game.paper_image,0,0,Game.WIDTH/2,Game.HEIGHT/2,null);
+        g.drawImage(Game.paper_image,0,0,Game.GAME_WIDTH /2,Game.GAME_HEIGHT /2,null);
 
         Graphics2D g2d=(Graphics2D)g;
         AffineTransform old=g2d.getTransform();
@@ -173,16 +173,16 @@ public class Menu extends MouseAdapter  {
         g2d.setTransform(old);
 
 
-        g2d.rotate(Math.toRadians(20),10,Game.HEIGHT/4+100);
-        g2d.drawImage(Game.najman_image,12,Game.HEIGHT/4+130,40,70,null);
+        g2d.rotate(Math.toRadians(20),10,Game.MENU_HEIGHT /2+100);
+        g2d.drawImage(Game.najman_image,12,Game.MENU_HEIGHT /2+130,40,70,null);
         g2d.setTransform(old);
 
-        g2d.rotate(Math.toRadians(-30),Game.WIDTH/4+230,Game.HEIGHT/4+150);
-        g2d.drawImage(Game.pudzian_image,Game.WIDTH/4+230,Game.HEIGHT/4+155,100,70,null);
+        g2d.rotate(Math.toRadians(-30),Game.MENU_WIDTH /2+230,Game.MENU_HEIGHT /2+150);
+        g2d.drawImage(Game.pudzian_image,Game.MENU_WIDTH /2+230,Game.MENU_HEIGHT /2+155,100,70,null);
         g2d.setTransform(old);
 
-        g2d.rotate(Math.toRadians(-130),Game.WIDTH/4+150,100);
-        g2d.drawImage(Game.bat_image,Game.WIDTH/4,100,300,120,null);
+        g2d.rotate(Math.toRadians(-130),Game.MENU_WIDTH /2+150,100);
+        g2d.drawImage(Game.bat_image,Game.MENU_WIDTH/2,100,300,120,null);
         g2d.setTransform(old);
 
     }

@@ -56,7 +56,7 @@ public class MenuMoth extends GameObject {
     private void startFalling() {
         if (y == 50) {
             falling=true;
-            getHandler().addObject(new MenuBat(Game.WIDTH/2+50,-50,ID.MenuBat,getHandler()));
+            getHandler().addObject(new MenuBat(Game.MENU_WIDTH+50,-50,ID.MenuBat,getHandler()));
         }
     }
     private boolean collision() {

@@ -2,7 +2,6 @@ package com.moth.game.objects.bonus;
 
 import com.moth.game.Game;
 import com.moth.game.enums.BonusType;
-import com.moth.game.handlers.Handler;
 import com.moth.game.objects.GameObject;
 import com.moth.game.enums.ID;
 
@@ -24,7 +23,7 @@ public interface Bonus {
         gameObject.setY(gameObject.getY()+gameObject.getVelY());
 
 
-        if(gameObject.getX()>Game.WIDTH)
+        if(gameObject.getX()>Game.GAME_WIDTH)
                gameObject.getHandler().removeObject(gameObject);
 
 

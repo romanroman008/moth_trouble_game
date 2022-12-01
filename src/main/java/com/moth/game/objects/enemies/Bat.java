@@ -7,12 +7,10 @@ import com.moth.game.objects.GameObject;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.Console;
 import java.util.Random;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.atan;
-import static java.lang.Math.toRadians;
 
 public class Bat extends GameObject {
     Random r;
@@ -119,7 +117,7 @@ public class Bat extends GameObject {
                     destX = r.nextInt(1, 650);
                     destY = -10;
                 }
-                tg = abs(x) / abs(Game.HEIGHT - destY);
+                tg = abs(x) / abs(Game.GAME_HEIGHT - destY);
                 angle = -atan(tg);                                    //calculating bat rotation
             }
             case 2 -> {
@@ -134,7 +132,7 @@ public class Bat extends GameObject {
                     destY = -10;
                 }
 
-                tg = abs(destX) / abs(Game.HEIGHT - destY);
+                tg = abs(destX) / abs(Game.GAME_HEIGHT - destY);
                 angle = atan(tg);                                     //calculating bat rotation
             }
             case 3 -> {
@@ -148,7 +146,7 @@ public class Bat extends GameObject {
                     destX = r.nextInt(1, 650);
                     destY = 1000;
                 }
-                tg = abs(destY) / abs(Game.WIDTH - destX);
+                tg = abs(destY) / abs(Game.GAME_WIDTH - destX);
                 angle = -Math.toRadians(90) - atan(tg);                   //calculating bat rotation
             }
 

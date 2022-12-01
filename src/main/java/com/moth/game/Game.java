@@ -16,6 +16,9 @@ public class Game extends Canvas implements Runnable {
 
     private static final long serialVersionUID = 5825867419458798954L;
     public static final int WIDTH = 1280, HEIGHT = WIDTH / 12 * 9;
+    static Dimension screenSize;
+    public static int GAME_WIDTH = WIDTH, GAME_HEIGHT = WIDTH / 12 * 9;
+    public static final int MENU_WIDTH = 640, MENU_HEIGHT = MENU_WIDTH / 12 * 9;
     private Thread thread;
     private boolean running = false;
     public Window window;
@@ -61,7 +64,14 @@ public class Game extends Canvas implements Runnable {
         this.addMouseListener(menu);
         pause = false;
 
-        window = new Window(WIDTH / 2, HEIGHT / 2, "Moth in trouble", this);
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        if(screenSize.height<HEIGHT){
+            GAME_HEIGHT =screenSize.height;
+            GAME_WIDTH = GAME_HEIGHT / 9 * 12;
+        }
+
+
+        window = new Window(MENU_WIDTH, MENU_HEIGHT, "Moth in trouble", this);
        // window.changeSize(WIDTH, HEIGHT);
 
 
@@ -160,7 +170,7 @@ public class Game extends Canvas implements Runnable {
 
     public void finish() {
         handler.getBonusHandler().removeBonuses();
-        window.changeSize(Game.WIDTH / 2, Game.HEIGHT / 2);
+        window.changeSize(Game.MENU_WIDTH, Game.MENU_HEIGHT);
         gameState = STATE.END;
         end = false;
         handler.removeAll();
@@ -180,7 +190,7 @@ public class Game extends Canvas implements Runnable {
         if (gameState == STATE.GAME) {
 
 
-            g.drawImage(background_image, 0, 0, Game.WIDTH, Game.HEIGHT, null);
+            g.drawImage(background_image, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
             drawBackground(g);
             handler.render(g);
             hud.render(g);
@@ -188,7 +198,7 @@ public class Game extends Canvas implements Runnable {
             if (pause) {
                 g.setColor(Color.white);
                 g.setFont(HUD.mediumFont);
-                g.drawString("Pauza", WIDTH / 2 - 30, HEIGHT / 2);
+                g.drawString("Pauza", GAME_WIDTH / 2 - 30, GAME_HEIGHT / 2);
             }
 
         } else if (gameState == STATE.MENU || gameState == STATE.HELP || gameState == STATE.END) {
@@ -214,22 +224,22 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.DARK_GRAY);
 
 
-        int x[] = {0, 0, Game.WIDTH / 2};
+        int x[] = {0, 0, Game.GAME_WIDTH / 2};
         int y[] = {0, 240, 0};
         g.setColor(new Color(0, 0, 0, 127));
         Polygon p1 = new Polygon(x, y, 3);   //left corner
         g.drawPolygon(p1);
         g.fillPolygon(p1);
 
-        int x2[] = {Game.WIDTH / 2, Game.WIDTH, Game.WIDTH};
+        int x2[] = {Game.GAME_WIDTH / 2, Game.GAME_WIDTH, Game.GAME_WIDTH};
         int y2[] = {0, 0, 240};
         Polygon p2 = new Polygon(x2, y2, 3);   //right corner
         g.drawPolygon(p2);
         g.fillPolygon(p2);
 
 
-        g.drawImage(lamp_image, Game.WIDTH / 2 - 150, -128, 300, 200, null);
-        g.drawImage(bulb_image, Game.WIDTH / 2 - 40, 44, 80, 100, null);
+        g.drawImage(lamp_image, Game.GAME_WIDTH / 2 - 150, -128, 300, 200, null);
+        g.drawImage(bulb_image, Game.GAME_WIDTH / 2 - 40, 44, 80, 100, null);
 
 
     }

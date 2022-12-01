@@ -51,14 +51,14 @@ public class Player extends GameObject {
         }
 
                                                        //setting player's bounds of the screen:
-        x=Game.clamp(x,-5,Game.WIDTH-75);    //horizontal
-        y=Game.clamp(y,40,Game.HEIGHT-85);   //vertical
+        x=Game.clamp(x,-5,Game.GAME_WIDTH -75);    //horizontal
+        y=Game.clamp(y,40,Game.GAME_HEIGHT -85);   //vertical
         if(y<240){
-            if(x<(float)Game.WIDTH/2){
-                y=Game.clamp(y,-3f/8f*(x+12)+240,Game.WIDTH);          //left upper corner
+            if(x<(float)Game.GAME_WIDTH /2){
+                y=Game.clamp(y,-3f/8f*(x+12)+240,Game.GAME_WIDTH);          //left upper corner
             }
-            if(x>(float)Game.WIDTH/2){
-                y=Game.clamp(y,3f/8f*(x+55)-240,Game.WIDTH);           //right upper corner
+            if(x>(float)Game.GAME_WIDTH /2){
+                y=Game.clamp(y,3f/8f*(x+55)-240,Game.GAME_WIDTH);           //right upper corner
             }
 
         }

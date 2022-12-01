@@ -25,11 +25,11 @@ public class Bulb extends GameObject {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Game.bulb_image,Game.WIDTH/2-40,44,80,100,null);
+        g.drawImage(Game.bulb_image,Game.GAME_WIDTH /2-40,44,80,100,null);
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(Game.WIDTH/2-40,44,80,100);
+        return new Rectangle(Game.GAME_WIDTH /2-40,44,80,100);
     }
 }

@@ -4,10 +4,8 @@ import com.moth.game.Game;
 import com.moth.game.handlers.Handler;
 import com.moth.game.objects.GameObject;
 import com.moth.game.enums.ID;
-import com.moth.game.objects.Trail;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.util.Random;
 
 public class BulbMissile extends GameObject {
@@ -27,10 +25,10 @@ public class BulbMissile extends GameObject {
 //        this.velX = r.nextInt(10 + 10) - 10;
 //        this.velY = r.nextInt(20);
         missileRandomizer();
-        if (y <= 0 || y >= Game.HEIGHT - 50)
+        if (y <= 0 || y >= Game.GAME_HEIGHT - 50)
             this.handler.removeObject(this);
 
-        if (x <= 0 || x >= Game.WIDTH)
+        if (x <= 0 || x >= Game.GAME_WIDTH)
             this.handler.removeObject(this);
 
     }
@@ -40,10 +38,10 @@ public class BulbMissile extends GameObject {
         x += velX;
         y += velY;
 
-        if (y <= 0 || y >= Game.HEIGHT - 50)
+        if (y <= 0 || y >= Game.GAME_HEIGHT - 50)
             this.handler.removeObject(this);
 
-        if (x <= 0 || x >= Game.WIDTH)
+        if (x <= 0 || x >= Game.GAME_WIDTH)
             this.handler.removeObject(this);
 
         if(collision())
