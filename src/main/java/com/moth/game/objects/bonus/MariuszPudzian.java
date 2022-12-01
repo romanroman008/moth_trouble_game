@@ -19,6 +19,14 @@ public class MariuszPudzian extends GameObject implements Bonus {
         this.velY=5;
     }
 
+    public MariuszPudzian(float x, float y, float height, float width, float velX, float velY, ID id) {
+        super(x, y, height, width, velX, velY, id);
+    }
+
+    public MariuszPudzian(float x, float y, float height, float width, ID id) {
+        super(x, y, height, width, id);
+    }
+
     @Override
     public void tick() {
         tick(this);
@@ -27,7 +35,9 @@ public class MariuszPudzian extends GameObject implements Bonus {
 
     @Override
     public void render(Graphics g) {
+       // render(g,this);
         g.drawImage(Game.pudzian_image,(int)x,(int)y,50,70,null);
+       // bonusPower(g);
     }
 
     @Override

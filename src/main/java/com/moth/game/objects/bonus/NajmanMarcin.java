@@ -26,6 +26,7 @@ public class NajmanMarcin extends GameObject implements Bonus {
 
     @Override
     public void render(Graphics g) {
+     //   render(g,this);
         g.drawImage(Game.najman_image,(int)x,(int)y,40,70,null);
     }
 

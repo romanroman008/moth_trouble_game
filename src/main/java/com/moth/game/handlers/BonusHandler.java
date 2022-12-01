@@ -59,6 +59,16 @@ public class BonusHandler {
                         g.drawString("Mamma mia, molto grande pizzerinia", (int) player.getX(), (int) player.getY() - 20);
 
                     }
+                    case PAPAJ -> {
+                        Graphics2D g2d = (Graphics2D) g;
+                        g2d.setComposite(makeTransparent(transparency));
+                        if (v > 3)
+                            transparency += 0.00001f;
+                        else if (transparency > 0.00003f)
+                            transparency -= 0.00003f;
+                        g2d.drawImage(Game.papiez_image, 0, 0, Game.WIDTH, Game.HEIGHT, null);
+                        g2d.setComposite(makeTransparent(1));
+                    }
                     case ILLUMINATI -> {
                         Graphics2D g2d = (Graphics2D) g;
                         g2d.setComposite(makeTransparent(transparency));

@@ -19,7 +19,7 @@ public class Spawn {
     private List<GameObject> bonusList;
     private Random r;
     private int scoreKeep;
-    private int bonusToGetIndex;
+    int bonusToGetIndex;
 
 
     public Spawn(Handler handler,HUD hud){
@@ -36,6 +36,13 @@ public class Spawn {
         bonusList.add(new MichaelJackson(Game.GAME_WIDTH /2-100,Game.GAME_HEIGHT /2-100, ID.Bonus,handler));
         bonusList.add(new Pizza(Game.GAME_WIDTH /2-100,Game.GAME_HEIGHT /2-100, ID.Bonus,handler));
         bonusList.add(new Illuminati(Game.GAME_WIDTH /2-100,Game.GAME_HEIGHT /2-100, ID.Bonus,handler));
+        bonusList.add(new MariuszPudzian(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new NajmanMarcin(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new MichaelJackson(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new Pizza(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new Papiez(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+        bonusList.add(new Illuminati(Game.WIDTH/2-100,Game.HEIGHT/2-100, ID.Bonus,handler));
+
     }
 
     public void tick(){
@@ -46,6 +53,10 @@ public class Spawn {
             }
         }
 
+//        if(handler.getObjects().stream().anyMatch(o->o.getId()==ID.Bat)) {
+//            darkKnight = true;               //setting boolean that the bat is on the map
+//
+//        }
 
 
 
@@ -54,15 +65,17 @@ public class Spawn {
         if(hud.getScore()==1){
             handler.addObject(new Bulb(Game.GAME_WIDTH /2-35,0, ID.Bulb,handler));                      //adding bulb and player
             handler.addObject(new Player(Game.GAME_WIDTH /2-32,Game.GAME_HEIGHT -100, ID.Player,handler));
-
+            //handler.addObject(bonusList.get(0));
         }
 
         if(scoreKeep%500==0&&scoreKeep!=0){
 
-            bonusToGetIndex= r.nextInt(5);        //drawing bonus
+            bonusToGetIndex = r.nextInt(5);        //drawing bonus
             bonusList.get(bonusToGetIndex).setX(-100);                     //resetting bonus position
             bonusList.get(bonusToGetIndex).setY(Game.GAME_HEIGHT /2-100);
             handler.addObject(bonusList.get(bonusToGetIndex));          //getting random bonus
+
+
         }
 
         if(scoreKeep==2000)
