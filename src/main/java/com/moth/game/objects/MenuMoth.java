@@ -7,13 +7,13 @@ import com.moth.game.handlers.Handler;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class MenuParticle extends GameObject {
-    public boolean thisIsTheEnd;
-    public boolean falling;
+public class MenuMoth extends GameObject {
+    public boolean thisIsTheEnd;   //confirm that this is end screen
+    public boolean falling;      //confirm that moth is falling
     int i=0;
     int j=0;
 
-    public MenuParticle(float x, float y, ID id, Handler handler) {
+    public MenuMoth(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
         velX = 1;
         thisIsTheEnd=false;
@@ -23,8 +23,10 @@ public class MenuParticle extends GameObject {
 
     @Override
     public void tick() {
-        startFalling();
+
         if (thisIsTheEnd) {
+
+            startFalling();
 
             if (!falling) {
                 x += (-1);
@@ -91,6 +93,5 @@ public class MenuParticle extends GameObject {
     @Override
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, 70, 70);
-        //return new Rectangle((int) x, (int) y, 35, 25);
     }
 }

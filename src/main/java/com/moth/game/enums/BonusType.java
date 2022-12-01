@@ -5,6 +5,5 @@ public enum BonusType {
     NAJMAN,
     MICHAEL_JACKSON,
     PIZZA,
-    PAPAJ,
     ILLUMINATI
 }

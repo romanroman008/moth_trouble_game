@@ -40,7 +40,7 @@ public class Pizza extends GameObject implements Bonus {
 
     @Override
     public void bonusPower() {
-        getHandler().getPlayer().setBonusSpeedMultiplier(0.5f);
+        getHandler().getPlayer().setBonusSpeedMultiplier(0.7f);
     }
 
     @Override

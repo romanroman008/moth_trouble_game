@@ -2,14 +2,10 @@ package com.moth.game.handlers;
 
 import com.moth.game.Game;
 import com.moth.game.HUD;
-import com.moth.game.enums.BonusType;
 import com.moth.game.objects.GameObject;
-import com.moth.game.objects.Player;
 import com.moth.game.objects.bonus.Bonus;
 
 import java.awt.*;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 
 public class BonusHandler {
@@ -63,16 +59,6 @@ public class BonusHandler {
                         g.drawString("Mamma mia, molto grande pizzerinia", (int) player.getX(), (int) player.getY() - 20);
 
                     }
-                    case PAPAJ -> {
-                        Graphics2D g2d = (Graphics2D) g;
-                        g2d.setComposite(makeTransparent(transparency));
-                        if (v > 3)
-                            transparency += 0.00001f;
-                        else if (transparency > 0.00003f)
-                            transparency -= 0.00003f;
-                        g2d.drawImage(Game.papiez_image, 0, 0, Game.WIDTH, Game.HEIGHT, null);
-                        g2d.setComposite(makeTransparent(1));
-                    }
                     case ILLUMINATI -> {
                         Graphics2D g2d = (Graphics2D) g;
                         g2d.setComposite(makeTransparent(transparency));
@@ -80,6 +66,7 @@ public class BonusHandler {
                             transparency += 0.00001f;
                         else if (transparency > 0.00003f)
                             transparency -= 0.00003f;
+                        g2d.drawImage(Game.illuminati_image, 254, 200, Game.GAME_WIDTH -560, Game.GAME_HEIGHT -400, null);
                         g2d.setComposite(makeTransparent(1));
                     }
                 }
