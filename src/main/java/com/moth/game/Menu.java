@@ -9,16 +9,26 @@ import java.awt.geom.AffineTransform;
 
 public class Menu extends MouseAdapter  {
 
+    private static Menu INSTANCE;
+
     Game game;
     Handler handler;
     HUD hud;
 
+    private Menu(){}
+
+    public static Menu getInstance(){
+        if(INSTANCE==null)
+            INSTANCE=new Menu();
+        return INSTANCE;
+    }
 
 
-    public Menu(Game game,Handler handler,HUD hud){
+
+    public Menu(Game game){
         this.game = game;
-        this.handler = handler;
-        this.hud=hud;
+        this.hud=HUD.getInstance();
+        this.handler=Handler.getInstance();
     }
 
     public void mousePressed(MouseEvent e) {
@@ -48,10 +58,12 @@ public class Menu extends MouseAdapter  {
             }
         }
         else if(game.gameState== Game.STATE.END){
-            if(mouseOver(mx,my,190, 320, 260, 60))
 
-                game.gameState= Game.STATE.MENU;
-            game.reset();
+                if(mouseOver(mx,my,190, 320, 260, 60)) {
+                    game.gameState= Game.STATE.MENU;
+                    game.reset();
+            }
+
         }
     }
 

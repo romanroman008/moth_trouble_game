@@ -2,27 +2,34 @@ package com.moth.game.handlers;
 
 import com.moth.game.Game;
 import com.moth.game.HUD;
-import com.moth.game.objects.GameObject;
+import com.moth.game.objects.GameObjectSchema;
 import com.moth.game.objects.bonus.Bonus;
 
 import java.awt.*;
 import java.util.HashMap;
 
-public class BonusHandler {
-    Game game;
+public final class BonusHandler {
+
+    private static BonusHandler INSTANCE;
+
+
+
+
+
     int counter = 0;
     // int trueCounter;
     Handler handler;
-    GameObject player;
+    GameObjectSchema player;
     HashMap<Bonus, Integer> bonuses = new HashMap<>();
     float transparency;
 
-
-    public BonusHandler(Game game, Handler handler) {
-        this.game = game;
-        this.handler = handler;
-        transparency = 0.00001f;
-
+    private BonusHandler(){
+        this.handler=handler.getInstance();
+    }
+    public static BonusHandler getInstance(){
+        if(INSTANCE==null)
+            INSTANCE=new BonusHandler();
+        return INSTANCE;
     }
 
     public void tick() {
@@ -80,12 +87,12 @@ public class BonusHandler {
         return (AlphaComposite.getInstance(type, alpha));
     }
 
-    public void addBonus(Bonus bonus) {         //adding bonus with its timer to map
+    public void addBonus(Bonus bonus) {         //adding bonusInterface with its timer to map
         this.bonuses.put(bonus, 10);
         bonusAction(bonus);
     }
 
-    private void bonusAction(Bonus bonus) {     //bonus start
+    private void bonusAction(Bonus bonus) {     //bonusInterface start
         bonus.bonusPower();
     }
 

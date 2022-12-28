@@ -4,37 +4,19 @@ import com.moth.game.Game;
 import com.moth.game.enums.BonusType;
 import com.moth.game.enums.ID;
 import com.moth.game.handlers.Handler;
-import com.moth.game.objects.GameObject;
 
 import java.awt.*;
 
-public class Illuminati extends GameObject implements Bonus {
-    public Illuminati(float x, float y, ID id, Handler handler) {
-        super(x, y, id, handler);
-        this.height=60;
-        this.width=100;
-        this.velX=5;
-        this.velY=5;
-    }
+class Illuminati extends Bonus {
 
-    @Override
-    public void tick() {
-        tick(this);
+
+    Illuminati(double x, double y, double height, double width, double velX, double velY, BonusType bonusType) {
+        super(x, y, height, width, velX, velY, bonusType);
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Game.jaszczur_image,(int)x,(int)y,(int)width,(int)height,null);
-    }
-
-    @Override
-    public Rectangle getBounds() {
-        return getBounds(this);
-    }
-
-    @Override
-    public BonusType getBonusType() {
-        return BonusType.ILLUMINATI;
+        g.drawImage(Game.jaszczur_image, (int) x, (int) y, (int) width, (int) height, null);
     }
 
     @Override
@@ -46,4 +28,6 @@ public class Illuminati extends GameObject implements Bonus {
     public void bonusDepower() {
 
     }
+
+
 }

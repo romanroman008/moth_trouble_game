@@ -7,7 +7,7 @@ import com.moth.game.handlers.Handler;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class MenuMoth extends GameObject {
+public class MenuMoth extends GameObjectSchema {
     public boolean thisIsTheEnd;   //confirm that this is end screen
     public boolean falling;      //confirm that moth is falling
     int i=0;

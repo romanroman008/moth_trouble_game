@@ -2,7 +2,11 @@ package com.moth.game;
 
 import java.awt.*;
 
-public class HUD {
+public final class HUD {
+
+    private static HUD INSTANCE;
+
+
     private int score=0;
     public static Font smallFont;
     public static Font mediumFont;
@@ -10,12 +14,19 @@ public class HUD {
     public static Font hugeFont;
     public static Color color;
 
-    public HUD() {
+
+    private HUD() {
        smallFont = new Font(Font.SERIF, Font.BOLD | Font.ITALIC, 20);
        mediumFont  = new Font(Font.SERIF, Font.BOLD | Font.ITALIC, 30);
        bigFont  = new Font(Font.SERIF, Font.BOLD | Font.ITALIC, 35);
        hugeFont = new Font(Font.SANS_SERIF, Font.BOLD | Font.ITALIC,50);
        color=new Color(51,25,0);
+    }
+
+    public static HUD getInstance(){
+        if(INSTANCE==null)
+            INSTANCE=new HUD();
+        return INSTANCE;
     }
 
     public void tick(){

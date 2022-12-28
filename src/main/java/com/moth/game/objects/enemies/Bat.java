@@ -3,7 +3,7 @@ package com.moth.game.objects.enemies;
 import com.moth.game.Game;
 import com.moth.game.enums.ID;
 import com.moth.game.handlers.Handler;
-import com.moth.game.objects.GameObject;
+import com.moth.game.objects.GameObjectSchema;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -12,7 +12,7 @@ import java.util.Random;
 import static java.lang.Math.abs;
 import static java.lang.Math.atan;
 
-public class Bat extends GameObject {
+public class Bat extends GameObjectSchema {
     Random r;
     int corner;
     float destX;

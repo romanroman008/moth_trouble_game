@@ -2,10 +2,12 @@ package com.moth.game;
 
 import com.moth.game.enums.ID;
 import com.moth.game.graphics.BufferedImageLoader;
+import com.moth.game.handlers.BonusHandler;
 import com.moth.game.handlers.Handler;
 import com.moth.game.handlers.Spawn;
 import com.moth.game.inputs.KeyInput;
 import com.moth.game.objects.MenuMoth;
+import com.moth.game.objects.bonus.Bonus;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -24,6 +26,7 @@ public class Game extends Canvas implements Runnable {
     public Window window;
 
     private Handler handler;
+    private BonusHandler bonusHandler;
     private HUD hud;
     private Spawn spawn;
     private Menu menu;
@@ -62,11 +65,12 @@ public class Game extends Canvas implements Runnable {
             GAME_WIDTH = GAME_HEIGHT / 9 * 12;
         }
 
-        handler = new Handler(this);
-        hud = new HUD();
-        spawn = new Spawn(handler, hud);
-        this.addKeyListener(new KeyInput(handler, this));
-        menu = new Menu(this, handler, hud);
+        handler = Handler.getInstance();
+        bonusHandler = BonusHandler.getInstance();
+        hud = HUD.getInstance();
+        spawn = Spawn.getInstance();
+        this.addKeyListener(new KeyInput(this));
+        menu = new Menu(this);
         this.addMouseListener(menu);
         pause = false;
 
@@ -149,6 +153,7 @@ public class Game extends Canvas implements Runnable {
                 handler.clearMenuParticles();
                 spawn.tick();
                 handler.tick();
+                bonusHandler.tick();
                 hud.tick();
                 if (end) {
                     finish();
@@ -171,7 +176,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void finish() {
-        handler.getBonusHandler().removeBonuses();
+        bonusHandler.removeBonuses();
         window.changeSize(Game.MENU_WIDTH, Game.MENU_HEIGHT);
         gameState = STATE.END;
         end = false;
@@ -196,6 +201,7 @@ public class Game extends Canvas implements Runnable {
             drawBackground(g);
             handler.render(g);
             hud.render(g);
+            bonusHandler.render(g);
 
             if (pause) {
                 g.setColor(Color.white);

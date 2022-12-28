@@ -1,6 +1,5 @@
 package com.moth.game.handlers;
 
-import com.moth.game.Game;
 import com.moth.game.objects.GameObject;
 import com.moth.game.enums.ID;
 import com.moth.game.objects.Player;
@@ -8,13 +7,24 @@ import com.moth.game.objects.Player;
 import java.awt.*;
 import java.util.LinkedList;
 
-public class Handler {
-    LinkedList<GameObject> objects = new LinkedList<GameObject>();
-    BonusHandler bonusHandler;
+public final class Handler {
 
-    public Handler(Game game) {
-        this.bonusHandler = new BonusHandler(game,this);
+    private static Handler INSTANCE;
+
+    private Handler(){}
+
+    public static Handler getInstance(){
+        if(INSTANCE==null)
+            INSTANCE=new Handler();
+        return INSTANCE;
     }
+
+    LinkedList<GameObject> objects = new LinkedList<GameObject>();
+
+
+
+
+
 
     public void tick() {
         for (int i = 0; i < objects.size(); i++) {
@@ -22,7 +32,7 @@ public class Handler {
 
             tempObject.tick();                   //invoking tick method in every object
         }
-        bonusHandler.tick();                 //invoking tick method in every collected bonus
+                     //invoking tick method in every collected bonus
     }
 
     public void render(Graphics g) {
@@ -31,7 +41,7 @@ public class Handler {
 
             tempObject.render(g);     //invoking render method in every object
         }
-        bonusHandler.render(g);         //invoking render method in every collected bonus
+
     }
 
     public void addObject(GameObject object) {
@@ -74,7 +84,5 @@ public class Handler {
         return objects;
     }
 
-    public BonusHandler getBonusHandler() {
-        return bonusHandler;
-    }
+
 }

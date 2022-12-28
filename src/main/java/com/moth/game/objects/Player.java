@@ -6,10 +6,10 @@ import com.moth.game.enums.ID;
 
 import java.awt.*;
 
-public class Player extends GameObject {
+public class Player extends GameObjectSchema {
 
     Handler handler;
-    GameObject bulb;
+    GameObjectSchema bulb;
     int counter;
     float bonusSpeedMultiplier;
     boolean gotcha=false;
@@ -23,7 +23,7 @@ public class Player extends GameObject {
         velY = 0;
         counter=0;
         this.handler = handler;
-        this.bulb = handler.getObjects().stream()
+        this.bulb =(GameObjectSchema) handler.getObjects().stream()
                 .filter(b -> b.getId().equals(ID.Bulb))
                 .findFirst()
                 .orElse(null);

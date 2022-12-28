@@ -7,7 +7,7 @@ import com.moth.game.handlers.Handler;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class MenuBat extends GameObject {
+public class MenuBat extends GameObjectSchema {
     public MenuBat(float x, float y, ID id, Handler handler) {
         super(x, y, id, handler);
     }

@@ -4,39 +4,18 @@ import com.moth.game.Game;
 import com.moth.game.enums.BonusType;
 import com.moth.game.enums.ID;
 import com.moth.game.handlers.Handler;
-import com.moth.game.objects.GameObject;
 
 import java.awt.*;
 
-public class NajmanMarcin extends GameObject implements Bonus {
+class NajmanMarcin extends Bonus {
 
-    public NajmanMarcin(float x, float y, ID id, Handler handler) {
-        super(x, y, id, handler);
-        this.height=70;
-        this.width=40;
-        this.velX=5;
-        this.velY=5;
-    }
-
-    @Override
-    public void tick() {
-        tick(this);
-
+    NajmanMarcin(double x, double y, double height, double width, double velX, double velY, BonusType bonusType) {
+        super(x, y, height, width, velX, velY, bonusType);
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Game.najman_image,(int)x,(int)y,40,70,null);
-    }
-
-    @Override
-    public Rectangle getBounds() {
-       return getBounds(this);
-    }
-
-    @Override
-    public BonusType getBonusType() {
-        return BonusType.NAJMAN;
+        g.drawImage(Game.najman_image, (int) x, (int) y, (int) width, (int) height, null);
     }
 
     @Override
